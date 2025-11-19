@@ -1,70 +1,41 @@
 # doda25-team18 - Operation
 
-This repository contains the operational setup for running the **SMS Checker** application using Docker Compose.  
-This README contains all the instructions needed to run the final application.
+This repository contains the operational setup for running the **SMS Checker** application using **Docker Compose**.  
+It provides all instructions required to start the application and manage its services.
+
+---
 
 ## Project Structure
 
 Your organization should contain the following repositories:
 
-- `app/` (Spring Boot + frontend)  
-  https://github.com/doda25-team18/app
+| Repository       | Description                                      | Link                                                     |
+|------------------|--------------------------------------------------|----------------------------------------------------------|
+| `app/`           | Spring Boot + frontend                           | [GitHub](https://github.com/doda25-team18/app)           |
+| `model-service/` | Python model API                                 | [GitHub](https://github.com/doda25-team18/model-service) |
+| `lib-version/`   | Shared version-aware Maven library               | [GitHub](https://github.com/doda25-team18/lib-version)   |
+| `operation/`     | This repository – Docker Compose & orchestration | [GitHub](https://github.com/doda25-team18/operation)     |
 
-- `model-service/` (Python model API)  
-  https://github.com/doda25-team18/model-service
+This repository contains the following files:
 
-- `lib-version/` (shared version-aware Maven library)  
-  https://github.com/doda25-team18/lib-version
+- `docker-compose.yml` – orchestrates all services
+- `README.md` – this document
 
-- `operation/` (this repo – Docker Compose, orchestration)  
-  https://github.com/doda25-team18/operation
-
-This repository ("operation") contains the following files:
-
-- `docker-compose.yml`
-- `README.md`
+---
 
 ## Requirements
 
 Before running the application, make sure you have:
 
-- The four repositories cloned in one file.
+- The four repositories cloned in the same directory.
 - Docker.
 - Docker Compose.
-- Trained the model. To do this, you can find the instructions in `model-service/README.md`.
-- **!For now!** Make sure to comment out the "lib-version" dependency from `app/pom.xml`:
-
-```
-<dependency>
-    <groupId>doda25-team18</groupId>
-    <artifactId>lib-version</artifactId>
-    <version>1.0.0</version>
-    <scope>compile</scope>
-</dependency>
-```
-
-Also comment out all mentions of "VersionUtil" from `app/src/main/java/frontend/ctrl/FrontendController.java`:
-
-```
-import doda25.team18.VersionUtil;
-```
-```
-m.addAttribute("libVersion", VersionUtil.getVersion());
-```
-
-This will be fixed once exercises F2 is done as well.
+- A trained model (see `model-service/README.md` for instructions).
 
 ## Running the application
 
-First, make sure you are in the "operation" folder.
-
-```
-$ cd operation
-```
-
-Then do:
-
-```
+From the `operation` repository, run:
+```bash
 docker compose up
 ```
 
@@ -72,8 +43,7 @@ This starts:
 - `app` -> http://localhost:8080 (default access)
 - `model-service` -> http://localhost:8081 (default access)
 
-To stop the application, do:
-
-```
+To stop the application, run:
+```bash
 docker compose down
 ```
