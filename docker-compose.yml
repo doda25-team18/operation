@@ -1,0 +1,21 @@
+services:
+  model-service:
+    image: ghcr.io/doda25-team18/model-service:0.1.0
+    container_name: model-service
+    environment:
+      MODEL_SERVICE_PORT: ${MODEL_SERVICE_PORT:-8081}
+    ports:
+      - "${MODEL_SERVICE_PORT:-8081}:${MODEL_SERVICE_PORT:-8081}"
+    restart: unless-stopped
+
+  app:
+    image: ghcr.io/doda25-team18/app:0.2.0
+    container_name: app
+    depends_on:
+      - model-service
+    environment:
+      SERVER_PORT: ${SERVER_PORT:-8080}
+      MODEL_HOST: ${MODEL_HOST:-http://model-service:8081}
+    ports:
+      - "${SERVER_PORT:-8080}:${SERVER_PORT:-8080}"
+    restart: unless-stopped
