@@ -40,8 +40,8 @@ docker compose up
 ```
 
 This starts:
-- `app` -> http://localhost:8080 (default access)
-- `model-service` -> http://localhost:8081 (default access)
+- `app` -> http://localhost:8080/sms (default access)
+- `model-service` -> http://localhost:8081/apidocs (default access)
 
 To stop the application, run:
 ```bash

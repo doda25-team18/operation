@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: ghcr.io/doda25-team18/app:0.1.0
+    image: ghcr.io/doda25-team18/app:0.2.0
     container_name: app
     depends_on:
       - model-service
