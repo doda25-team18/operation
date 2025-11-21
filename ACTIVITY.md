@@ -27,4 +27,7 @@ No work
     - https://github.com/doda25-team18/lib-version/pull/6
     This week I implemented features F2 and F11 for A1.
 
+- Sanjay
+      - https://github.com/doda25-team18/model-service/blob/main/.github/workflows/train.yml
+      - Implemented F9 for A1
 ### Week Q2.3 (Nov 24+)
