@@ -7,7 +7,7 @@ No work
 - Diana:
     - https://github.com/doda25-team18/operation/pull/1
 
-    I have worked on A1 (F7), where I created a `docker-compose` file to run the application.
+    I have worked on A1 (F7), where I created a `docker-compose` file to run the application and a `README` with instructions.
 
 - Fedor
     - https://github.com/doda25-team18/model-service/pull/4
@@ -22,5 +22,9 @@ No work
 - Jan: https://github.com/doda25-team18/model-service/pull/5  
   I have implemented features F1 (app uses lib-version dependency and shows its version) and 
   F10 (model is downloaded and used from volume mount instead of being hardcoded).
+
+- Yasar
+    - https://github.com/doda25-team18/lib-version/pull/6
+    This week I implemented features F2 and F11 for A1.
 
 ### Week Q2.3 (Nov 24+)
