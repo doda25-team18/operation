@@ -1,6 +1,6 @@
 services:
   model-service:
-    image: ghcr.io/doda25-team18/model-service:0.1.0
+    image: ghcr.io/doda25-team18/model-service:0.2.0
     container_name: model-service
     environment:
       MODEL_SERVICE_PORT: ${MODEL_SERVICE_PORT:-8081}
