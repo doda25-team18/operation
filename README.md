@@ -31,6 +31,7 @@ Before running the application, make sure you have:
 - Docker.
 - Docker Compose.
 - A trained model (see `model-service/README.md` for instructions).
+- A Maven `settings.xml` file (see `app/README.md` for instructions).
 
 ## Running the application
 
