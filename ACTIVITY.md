@@ -14,5 +14,9 @@ No work
 
     My job in A1 was implementing 2 workflows (for the app and model-service repositories) to automate the release of docker container images. All requested parts mentioned under F8 have been implemented (with the version being determined by the 
     <version> in the pom.xml file in both workflows).
+- Samuel
+    - https://github.com/doda25-team18/lib-version/pull/7
+      
+    This week I worked on A1, dockerizing frontend and backend (including flexible containers and multi-stage images). I also implemented the automatic version-bumping behavior of the release workflow in lib-version.
 
 ### Week Q2.3 (Nov 24+)
