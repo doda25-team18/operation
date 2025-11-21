@@ -15,4 +15,8 @@ No work
 
     My job in A1 was implementing 2 workflows (for the app and model-service repositories) to automate the release of docker container images.  
 
+- Jan: https://github.com/doda25-team18/model-service/pull/5  
+  I have implemented features F1 (app uses lib-version dependency and shows its version) and 
+  F10 (model is downloaded and used from volume mount instead of being hardcoded).
+
 ### Week Q2.3 (Nov 24+)
