@@ -9,12 +9,12 @@ It provides all instructions required to start the application and manage its se
 
 Your organization should contain the following repositories:
 
-| Repository       | Description                                      | Link                                                     |
-|------------------|--------------------------------------------------|----------------------------------------------------------|
-| `app/`           | Spring Boot + frontend                           | [GitHub](https://github.com/doda25-team18/app)           |
-| `model-service/` | Python model API                                 | [GitHub](https://github.com/doda25-team18/model-service) |
-| `lib-version/`   | Shared version-aware Maven library               | [GitHub](https://github.com/doda25-team18/lib-version)   |
-| `operation/`     | This repository – Docker Compose & orchestration | [GitHub](https://github.com/doda25-team18/operation)     |
+| Repository       | Description                                      | Link                                                             |
+|------------------|--------------------------------------------------|------------------------------------------------------------------|
+| `app/`           | Spring Boot + frontend                           | [GitHub](https://github.com/doda25-team18/app/tree/a1)           |
+| `model-service/` | Python model API                                 | [GitHub](https://github.com/doda25-team18/model-service/tree/a1) |
+| `lib-version/`   | Shared version-aware Maven library               | [GitHub](https://github.com/doda25-team18/lib-version/tree/a1)   |
+| `operation/`     | This repository – Docker Compose & orchestration | [GitHub](https://github.com/doda25-team18/operation/tree/a1)     |
 
 This repository contains the following files:
 
