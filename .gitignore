@@ -7,3 +7,5 @@ docker-compose.override.yml
 
 # Docker volumes (if synced locally)
 model_data/
+
+.vagrant/
