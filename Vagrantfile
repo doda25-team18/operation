@@ -9,6 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #Controler node
   config.vm.define "ctrl" do |ctrl|
     ctrl.vm.box = "bento/ubuntu-24.04"
+    ctrl.vm.box_version = "202510.26.0"
     ctrl.vm.hostname = "ctrl"
 
     ctrl.vm.network "private_network", ip: "192.168.56.100"
@@ -25,8 +26,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   (1..worker_count).each do |i|
     config.vm.define "node-#{i}" do |node|
       node.vm.box = "bento/ubuntu-24.04"
+      node.vm.box_version = "202510.26.0"
       node.vm.hostname = "node-#{i}"
-      node.vm.network "private_network", ip: "192.168.56.10#{i}"
+      node.vm.network "private_network", ip: "192.168.56.#{100 + i}"
       node.vm.provider "virtualbox" do |vb|
         vb.memory = worker_memory
         vb.cpus = 2
