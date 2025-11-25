@@ -31,3 +31,7 @@ No work
       - https://github.com/doda25-team18/model-service/blob/main/.github/workflows/train.yml
       - Implemented F9 for A1
 ### Week Q2.3 (Nov 24+)
+
+- Yasar
+    - https://github.com/doda25-team18/operation/pull/
+    This week I completed Steps 1 through 4 of the Kubernetes cluster assignment
