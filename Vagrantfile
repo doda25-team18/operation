@@ -6,18 +6,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   controller_memory = 4096
   worker_memory = 6144
   
-  # Controler node
+  # Controller node
   config.vm.define "ctrl" do |ctrl|
     ctrl.vm.box = "bento/ubuntu-24.04"
     ctrl.vm.box_version = "202510.26.0"
     ctrl.vm.hostname = "k8s-controller"
-
     ctrl.vm.network "private_network", ip: "192.168.56.100"
 
     ctrl.vm.provider "virtualbox" do |vb|
+      vb.name = "kubernetes-ctrl"
       vb.memory = controller_memory
       vb.cpus = 1
-      vb.name = "kubernetes-ctrl"
     end
 
     ctrl.vm.provision "ansible" do |ansible|
@@ -51,19 +50,18 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.provision "shell", inline: <<-SHELL
+  # EX Feature: Vagrant generates a valid inventory.cfg done with help of ai
+  config.vm.provision "shell", inline: <<-SHELL_SCRIPT
     cat > /vagrant/inventory.cfg << 'EOF'
 [controller]
 192.168.56.100
 
 [workers]
-192.168.56.101
-192.168.56.102
+#{ (1..worker_count).map { |i| "192.168.56.#{100 + i}" }.join("\n") }
 
 [kubernetes_cluster:children]
 controller
 workers
 EOF
-  SHELL
-
+  SHELL_SCRIPT
 end
