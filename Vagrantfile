@@ -21,9 +21,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     ctrl.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/general.yaml"
+      ansible.extra_vars = { worker_count: worker_count }
     end
     ctrl.vm.provision "ansible" do |ansible|
       ansible.playbook = "provisioning/ctrl.yaml"
+      ansible.extra_vars = { worker_count: worker_count }
     end
   end
 
@@ -43,9 +45,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       node.vm.provision "ansible" do |ansible|
         ansible.playbook = "provisioning/general.yaml"
+        ansible.extra_vars = { worker_count: worker_count }
       end
       node.vm.provision "ansible" do |ansible|
         ansible.playbook = "provisioning/node.yaml"
+        ansible.extra_vars = { worker_count: worker_count }
       end
     end
   end
