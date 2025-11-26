@@ -31,3 +31,20 @@
         path: /etc/fstab
         regexp: '^\s*[^#].*\s+swap\s+.*$' # This RegExp was generated with AI
         state: absent
+
+    - name: Create k8s modules load config
+      ansible.builtin.copy:
+        dest: /etc/modules-load.d/k8s.conf
+        content: |
+          overlay
+          br_netfilter
+
+    - name: Load br_netfilter module
+      ansible.builtin.modprobe:
+        name: br_netfilter
+        state: present
+
+    - name: Load overlay module
+      ansible.builtin.modprobe:
+        name: overlay
+        state: present
