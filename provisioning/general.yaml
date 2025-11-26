@@ -15,7 +15,7 @@
         group: vagrant
         mode: '0700'
 
-    - name: Install team SSH keys for vagrant users (2 users)
+    - name: Install team SSH keys for vagrant users
       ansible.posix.authorized_key:
         user: vagrant
         state: present
