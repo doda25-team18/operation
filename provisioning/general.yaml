@@ -154,3 +154,10 @@
         name: containerd
         state: restarted
         enabled: yes
+
+    # Step 12
+    - name: Start and enable the kubelet service
+      ansible.builtin.service:
+        name: kubelet
+        state: started
+        enabled: yes
