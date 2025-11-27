@@ -10,3 +10,6 @@ model_data/
 
 inventory.cfg
 .vagrant/
+
+# K8s config file
+kubeconfig
