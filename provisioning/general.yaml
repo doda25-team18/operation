@@ -85,3 +85,18 @@
           {% for n in range(worker_count) %}
           192.168.56.10{{ n+1 }} node-{{ n+1 }}
           {% endfor %}
+
+    # Step 9
+    - name: Add Kubernetes apt GPG key
+      ansible.builtin.apt_key:
+        url: https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key
+        state: present
+
+    - name: Add Kubernetes repository
+      ansible.builtin.apt_repository:
+        repo: "deb https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /"
+        state: present
+
+    - name: Update apt cache after adding Kubernetes repository
+      ansible.builtin.apt:
+        update_cache: yes
