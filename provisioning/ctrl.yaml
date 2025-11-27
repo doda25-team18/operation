@@ -38,3 +38,28 @@
         src: /etc/kubernetes/admin.conf
         dest: "{{ playbook_dir }}/../kubeconfig"
         flat: yes
+
+    - name: Create flannel directory
+      file:
+        path: /flannel
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
+
+    - name: Download Flannel
+      get_url:
+        url: https://github.com/flannel-io/flannel/releases/download/v0.26.7/kube-flannel.yml
+        dest: /flannel/kube-flannel.yml
+        mode: '0644'
+
+    ## Note: the command below was generated with the help of ChatGPT with the prompt: "Modify to add --iface=eth1 to use the correct network interface"
+    - name: Modify Flannel manifest to use eth1 interface
+      replace:
+        path: /flannel/kube-flannel.yml
+        regexp: '(- --kube-subnet-mgr)$'
+        replace: '\1\n        - --iface=eth1'
+
+    - name: Apply network
+      become_user: vagrant
+      command: kubectl apply -f /flannel/kube-flannel.yml
