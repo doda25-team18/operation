@@ -72,3 +72,16 @@
         sysctl_set: true
         state: present
         reload: yes
+
+    # Step 8
+    - name: Generate /etc/hosts files for all nodes
+      ansible.builtin.copy:
+        dest: /etc/hosts
+        # The next part was generated with the help of ChatGPT
+        content: |
+          127.0.0.1 localhost
+
+          192.168.56.100 ctrl
+          {% for n in range(worker_count) %}
+          192.168.56.10{{ n+1 }} node-{{ n+1 }}
+          {% endfor %}
