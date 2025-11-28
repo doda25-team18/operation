@@ -34,4 +34,10 @@ No work
 
 - Yasar
     - https://github.com/doda25-team18/operation/pull/
-    This week I completed Steps 1 through 4 of the Kubernetes cluster assignment
+    
+    This week I completed Steps 1 through 4 of the Kubernetes cluster assignment.
+
+- Diana
+    - https://github.com/doda25-team18/operation/pull/15
+
+    This week I worked on A2, where I did the steps from 8 to 12. In this I managed `etc/hosts/`, I added the Kubernetes repository, I installed the K8 tools, I configured `containerd` and I started and enabled `kubelet`.
