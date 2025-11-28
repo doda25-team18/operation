@@ -81,6 +81,11 @@
         creates: /home/vagrant/.local/share/helm/plugins/helm-diff
 
     ## Step 19: Generate and save join command
+    - name: Check for existing admin.conf
+      ansible.builtin.stat:
+        path: /etc/kubernetes/admin.conf
+      register: adminconf
+
     - name: Generate kubeadm join command
       ansible.builtin.command: kubeadm token create --print-join-command
       register: kubeadm_join_cmd
