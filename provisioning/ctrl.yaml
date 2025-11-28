@@ -79,3 +79,16 @@
       command: helm plugin install https://github.com/databus23/helm-diff
       args:
         creates: /home/vagrant/.local/share/helm/plugins/helm-diff
+
+    ## Step 19: Generate and save join command
+    - name: Generate kubeadm join command
+      ansible.builtin.command: kubeadm token create --print-join-command
+      register: kubeadm_join_cmd
+      when: adminconf.stat.exists   
+
+    - name: Save join command to shared folder
+      ansible.builtin.copy:
+        dest: /vagrant/kube_join_cmd.sh
+        content: "{{ kubeadm_join_cmd.stdout }}"
+        mode: '0755'
+      when: adminconf.stat.exists  

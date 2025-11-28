@@ -18,3 +18,10 @@
   delegate_to: ctrl
   register: join_cmd
   when: not kubelet_conf.stat.exists
+
+# Step 19: Join worker to cluster
+- name: Join kubernetes cluster
+  ansible.builtin.shell: "{{ join_cmd.stdout }}"
+  args:
+    creates: /etc/kubernetes/kubelet.conf
+  when: not kubelet_conf.stat.exists 
