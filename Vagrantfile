@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ctrl.vm.provider "virtualbox" do |vb|
       vb.name = "kubernetes-ctrl"
       vb.memory = controller_memory
-      vb.cpus = 1
+      vb.cpus = 2
     end
 
     ctrl.vm.provision "ansible" do |ansible|
