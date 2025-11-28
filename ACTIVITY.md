@@ -56,3 +56,8 @@ No work
 
 - Sanjay
   - Worked on Steps 18-19
+
+- Samuel
+  - https://github.com/doda25-team18/operation/pull/28
+
+      I worked on A2 and implemented step 20, which sets up Metallb. As of the time of writing this is still unmerged. It depends on steps 18 and 19 and those are not ready to be merged yet.
