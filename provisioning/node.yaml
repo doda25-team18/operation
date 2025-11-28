@@ -7,21 +7,21 @@
       debug:
         msg: "Worker provisioning is working"
     
-# Step 18: Get join command from controller
-- name: Checking if worker joined the cluster
-  ansible.builtin.stat:
-    path: /etc/kubernetes/kubelet.conf
-  register: kubelet_conf
-  
-- name: Join command from controller
-  ansible.builtin.command: kubeadm token create --print-join-command
-  delegate_to: ctrl
-  register: join_cmd
-  when: not kubelet_conf.stat.exists
+    # Step 18: Get join command from controller
+    - name: Checking if worker joined the cluster
+      ansible.builtin.stat:
+        path: /etc/kubernetes/kubelet.conf
+      register: kubelet_conf
+      
+    - name: Join command from controller
+      ansible.builtin.command: kubeadm token create --print-join-command
+      delegate_to: ctrl
+      register: join_cmd
+      when: not kubelet_conf.stat.exists
 
-# Step 19: Join worker to cluster
-- name: Join kubernetes cluster
-  ansible.builtin.shell: "{{ join_cmd.stdout }}"
-  args:
-    creates: /etc/kubernetes/kubelet.conf
-  when: not kubelet_conf.stat.exists 
+    # Step 19: Join worker to cluster
+    - name: Join kubernetes cluster
+      ansible.builtin.shell: "{{ join_cmd.stdout }}"
+      args:
+        creates: /etc/kubernetes/kubelet.conf
+      when: not kubelet_conf.stat.exists
