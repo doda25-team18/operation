@@ -8,12 +8,12 @@
         msg: "Worker provisioning is working"
     
 # Step 18: Get join command from controller
-- name: Check if worker already joined the cluster
+- name: Checking if worker joined the cluster
   ansible.builtin.stat:
     path: /etc/kubernetes/kubelet.conf
   register: kubelet_conf
   
-- name: Fetch join command from controller
+- name: Join command from controller
   ansible.builtin.command: kubeadm token create --print-join-command
   delegate_to: ctrl
   register: join_cmd
