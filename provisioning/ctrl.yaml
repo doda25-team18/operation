@@ -97,3 +97,5 @@
         content: "{{ kubeadm_join_cmd.stdout }}"
         mode: '0755'
       when: adminconf.stat.exists  
+
+      
