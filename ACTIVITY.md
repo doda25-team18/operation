@@ -47,3 +47,9 @@ No work
     - https://github.com/doda25-team18/operation/pull/20
 
     This week I completed steps 13 to 17, including optional step 17. These steps involved initialising a kubernetes cluster, setting up kubectl, creating a pod network and installing Helm alongside an additional Helm package.
+
+- Jan
+  - https://github.com/doda25-team18/operation/pull/12
+
+    I have worked on A2 and implemented steps 5-7. (disable swap, load br_netfilter and overlay
+    modules, enable ipv4 forwarding)
