@@ -13,3 +13,5 @@ inventory.cfg
 
 # K8s config file
 kubeconfig
+
+join_cmd.sh
