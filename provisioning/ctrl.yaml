@@ -72,3 +72,10 @@
         echo "deb [signed-by=/usr/share/keyrings/helm.gpg] https://packages.buildkite.com/helm-linux/helm-debian/any/ any main" | sudo tee /etc/apt/sources.list.d/helm-stable-debian.list
         sudo apt-get update
         sudo apt-get install helm
+
+    ## Note: the command below was fixed with the help of ChatGPT (which added the "creates" argument)
+    - name: Install helm-diff plugin
+      become_user: vagrant
+      command: helm plugin install https://github.com/databus23/helm-diff
+      args:
+        creates: /home/vagrant/.local/share/helm/plugins/helm-diff
