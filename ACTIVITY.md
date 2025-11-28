@@ -30,6 +30,7 @@ No work
 - Sanjay
       - https://github.com/doda25-team18/model-service/blob/main/.github/workflows/train.yml
       - Implemented F9 for A1
+  
 ### Week Q2.3 (Nov 24+)
 
 - Yasar
@@ -41,3 +42,8 @@ No work
     - https://github.com/doda25-team18/operation/pull/15
 
     This week I worked on A2, where I did the steps from 8 to 12. In this I managed `etc/hosts/`, I added the Kubernetes repository, I installed the K8 tools, I configured `containerd` and I started and enabled `kubelet`.
+
+- Fedor
+    - https://github.com/doda25-team18/operation/pull/20
+
+    This week I completed steps 13 to 17, including optional step 17. These steps involved initialising a kubernetes cluster, setting up kubectl, creating a pod network and installing Helm alongside an additional Helm package.
