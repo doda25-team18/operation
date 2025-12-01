@@ -47,3 +47,40 @@ To stop the application, run:
 ```bash
 docker compose down
 ```
+
+---
+
+## Kubernetes Deployment
+
+This project uses a Helm chart to deploy the application stack to Kubernetes.
+
+### Installation
+
+To install the application, run the following command from the `operation` directory. You can set the `ingress.host` to any hostname you prefer.
+
+```bash
+helm install test-a3 ./helm --set ingress.host=test.local
+```
+
+### Accessing on Localhost (Minikube on macOS/Windows)
+
+Due to the network limitations of Minikube when using the Docker driver on macOS and Windows, the Ingress IP is not directly routable from the host machine. To access the application locally, follow these steps after installing the Helm chart:
+
+1.  **Update your hosts file:**
+    Ensure your `/etc/hosts` file (or `C:\Windows\System32\drivers\etc\hosts` on Windows) contains an entry for your chosen hostname pointing to `127.0.0.1`.
+    127.0.0.1 test.local
+   
+
+2.  **Forward the Ingress port:**
+    Open a **separate terminal window** and run the following command. This will forward your local port 80 to the Ingress controller inside the Minikube cluster. This requires `sudo` because it uses a privileged port.
+
+    sudo kubectl port-forward --namespace ingress-nginx service/ingress-nginx-controller 80:80
+    
+    Keep this terminal window running.
+
+3.  **Access the application:**
+    You can now access the application in your browser at the hostname you configured, without any port number:
+    
+    [http://test.local](http://test.local)
+
+This method allows you to test the full Ingress setup locally. On a cloud-based Kubernetes cluster, the `LoadBalancer` service would get a real external IP, and this port-forwarding step would not be necessary.

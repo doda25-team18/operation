@@ -1,0 +1,21 @@
+replicaCount: 2
+
+image:
+  app: ghcr.io/doda25-team18/app:0.2.0
+  model: ghcr.io/doda25-team18/model-service:0.2.0
+
+app:
+  port: 8080
+
+modelService:
+  port: 8081
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  host: stable.team18.nl
+
+configmap:
+  environment: production
