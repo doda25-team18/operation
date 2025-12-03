@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: {{ .Values.image.app }}
+        ports:
+        - containerPort: {{ .Values.app.port }}
+        env:
+        - name: SERVER_PORT
+          value: "8080"
+        - name: MODEL_HOST
+          value: "http://model-service:{{ .Values.modelService.port }}"
+        envFrom:
+        - configMapRef:
+            name: app-config
