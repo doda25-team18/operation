@@ -74,13 +74,36 @@ Due to the network limitations of Minikube when using the Docker driver on macOS
 2.  **Forward the Ingress port:**
     Open a **separate terminal window** and run the following command. This will forward your local port 80 to the Ingress controller inside the Minikube cluster. This requires `sudo` because it uses a privileged port.
 
+    ```bash
     sudo kubectl port-forward --namespace ingress-nginx service/ingress-nginx-controller 80:80
-    
+    ``` 
+
     Keep this terminal window running.
 
-3.  **Access the application:**
+4.  **Access the application:**
     You can now access the application in your browser at the hostname you configured, without any port number:
     
     [http://test.local](http://test.local)
 
 This method allows you to test the full Ingress setup locally. On a cloud-based Kubernetes cluster, the `LoadBalancer` service would get a real external IP, and this port-forwarding step would not be necessary.
+
+
+### Accessing on LocalHost (without using Minikube tunnel, with ingress)
+
+To launch the application locally without using minikube tunnel:
+
+1. **Enable ingress:**
+    This can be done by running
+   ```bash
+    minikube addons enable ingress
+   ```
+
+2. **Get ingress ip address**
+    By running
+   ```bash
+       kubectl get ingress
+   ```
+
+3. Update your `/etc/hosts` file (`C:\Windows\System32\drivers\etc\hosts` on Windows) by adding ```test.local <ingress ip address>```
+
+4. Open [test.local/sms](http://test.local/sms)
