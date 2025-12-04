@@ -28,6 +28,11 @@ configmap:
 secrets:
   smtpPassword: "changeme-during-installation"
 
+storage:
+  enabled: true
+  path: "/mnt/shared"
+  mountPath: "/app/shared"
+
 
 kube-prometheus-stack:
   prometheus:

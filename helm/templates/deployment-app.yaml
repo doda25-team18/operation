@@ -24,3 +24,15 @@ spec:
                 name: {{ .Values.app.name }}-config
             - secretRef:
                 name: {{ .Values.app.name }}-secrets
+          {{- if .Values.storage.enabled }}
+          volumeMounts:
+              - name: shared-volume
+                mountPath: {{ .Values.storage.mountPath }}
+          {{- end }}
+      {{- if .Values.storage.enabled }}
+      volumes:
+        - name: shared-volume
+          hostPath:
+            path: {{ .Values.storage.path }}
+            type: Directory
+      {{- end }}
