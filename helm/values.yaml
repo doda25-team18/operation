@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  app: ghcr.io/doda25-team18/app:0.2.0
+  app: ghcr.io/doda25-team18/app:0.1.0-snapshot
   model: ghcr.io/doda25-team18/model-service:0.2.0
 
 app:
@@ -19,3 +19,9 @@ ingress:
 
 configmap:
   environment: production
+
+kube-prometheus-stack:
+  prometheus:
+    prometheusSpec:
+      serviceMonitorSelector: {}
+      podMonitorSelector: {}
