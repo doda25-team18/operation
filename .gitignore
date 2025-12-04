@@ -15,3 +15,5 @@ inventory.cfg
 kubeconfig
 
 join_cmd.sh
+
+helm/charts/
