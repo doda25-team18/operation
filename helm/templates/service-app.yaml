@@ -16,7 +16,10 @@ spec:
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: app-servicemonitor 
+  name: app-servicemonitor
+  labels:
+    app: app
+    release: test-a3
 spec:
   selector:
     matchLabels:
@@ -25,3 +28,4 @@ spec:
     - port: http
       path: /sms/metrics
       interval: 5s
+      
