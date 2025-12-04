@@ -59,7 +59,8 @@ This project uses a Helm chart to deploy the application stack to Kubernetes.
 To install the application, run the following command from the `operation` directory. You can set the `ingress.host` to any hostname you prefer.
 
 ```bash
-helm install test-a3 ./helm --set ingress.host=test.local
+helm install test-a3 ./helm --set ingress.host=test.local --set secrets.smtpPassword="your-secure-password"
+
 ```
 
 ### Accessing on Localhost (Minikube on macOS/Windows)

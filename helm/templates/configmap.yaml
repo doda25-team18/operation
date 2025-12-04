@@ -1,7 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: app-config
+  name: {{ .Values.app.name }}-config
+  labels:
+    app: {{ .Values.app.name }}
 data:
-  environment: {{ .Values.configmap.environment }}
+  ENVIRONMENT: "{{ .Values.configmap.environment }}"
+  SERVER_PORT: "{{ .Values.app.port }}"
+  MODEL_HOST: "http://{{ .Values.modelService.name }}:{{ .Values.modelService.port }}"
   debug: "false"

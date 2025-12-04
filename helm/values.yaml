@@ -1,13 +1,17 @@
-replicaCount: 2
+replicaCount:
+  app: 2
+  modelService: 1
 
 image:
   app: ghcr.io/doda25-team18/app:0.4.0
   model: ghcr.io/doda25-team18/model-service:0.2.0
 
 app:
+  name: "app"
   port: 8080
 
 modelService:
+  name: "model-service"
   port: 8081
 
 service:
@@ -16,16 +20,21 @@ service:
 ingress:
   enabled: true
   host: stable.team18.nl
+  prereleaseHost: prerelease.team18.nl
 
 configmap:
   environment: production
 
+secrets:
+  smtpPassword: "changeme-during-installation"
+
+
 kube-prometheus-stack:
   prometheus:
     prometheusSpec:
-      serviceMonitorSelector: 
-        matchLabels: 
+      serviceMonitorSelector:
+        matchLabels:
           release: test-a3
-      podMonitorSelector: 
-        matchLabels: 
+      podMonitorSelector:
+        matchLabels:
           release: test-a3
