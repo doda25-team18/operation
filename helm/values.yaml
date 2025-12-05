@@ -60,9 +60,3 @@ grafana:
           url: http://test-a3-kube-prometheus-st-prometheus:9090
           access: proxy
           isDefault: true
-      serviceMonitorSelector:
-        matchLabels:
-          release: test-a3
-      podMonitorSelector:
-        matchLabels:
-          release: test-a3
