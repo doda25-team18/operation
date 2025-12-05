@@ -79,3 +79,7 @@ No work
   - https://github.com/doda25-team18/operation/pull/12
     I have worked on A3 - Kubernetes Usage. I implemented requirements for Excellent, and
     fixed/implemented some of the requirements for Good.
+
+- Fedor
+  - https://github.com/doda25-team18/operation/pull/34
+    I have worked on A3 - Grafana. This part is still work in progress, with the current issue being Prometheus giving the error "Error scraping target: expected a valid start token, got "\n" ("INVALID") while parsing: "\n""
