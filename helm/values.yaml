@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  app: ghcr.io/doda25-team18/app:0.1.0-snapshot
+  app: ghcr.io/doda25-team18/app:0.4.0
   model: ghcr.io/doda25-team18/model-service:0.2.0
 
 app:
@@ -23,5 +23,9 @@ configmap:
 kube-prometheus-stack:
   prometheus:
     prometheusSpec:
-      serviceMonitorSelector: {}
-      podMonitorSelector: {}
+      serviceMonitorSelector: 
+        matchLabels: 
+          release: test-a3
+      podMonitorSelector: 
+        matchLabels: 
+          release: test-a3
