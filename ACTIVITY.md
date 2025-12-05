@@ -81,5 +81,5 @@ No work
     fixed/implemented some of the requirements for Good.
 
 - Fedor
-  - https://github.com/doda25-team18/operation/pull/34
-    I have worked on A3 - Grafana. This part is still work in progress, with the current issue being Prometheus giving the error "Error scraping target: expected a valid start token, got "\n" ("INVALID") while parsing: "\n""
+  - [https://github.com/doda25-team18/operation/pull/34](https://github.com/doda25-team18/operation/pull/32)
+    I have worked on A3 - Grafana. This part is still work in progress, with the current issue being Prometheus giving the error "Error scraping target: expected a valid start token, got "\n" ("INVALID") while parsing: "\n"". I also updated the readme with instructions on how to run the app without using minikube tunnel
