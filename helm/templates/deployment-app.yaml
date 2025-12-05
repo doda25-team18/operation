@@ -34,5 +34,5 @@ spec:
         - name: shared-volume
           hostPath:
             path: {{ .Values.storage.path }}
-            type: Directory
+            type: DirectoryOrCreate
       {{- end }}
