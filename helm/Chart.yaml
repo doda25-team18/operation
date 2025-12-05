@@ -1,9 +1,9 @@
 apiVersion: v2
 name: team18-a3
-description: Helm chart voor A3 - Operate and Monitor Kubernetes
+description: Helm chart for A3 - Operate and Monitor Kubernetes
 type: application
 version: 0.1.0
-appVersion: "02.0"
+appVersion: "0.2.0"
 maintainers:
   - name: Yasar Kocdas
 

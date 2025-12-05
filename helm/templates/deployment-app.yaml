@@ -1,29 +1,38 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app
+  name: {{ .Values.app.name }}
   labels:
-    app: app
+    app: {{ .Values.app.name }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount.app }}
   selector:
     matchLabels:
-      app: app
+      app: {{ .Values.app.name }}
   template:
     metadata:
       labels:
-        app: app
+        app: {{ .Values.app.name }}
     spec:
       containers:
-      - name: app
-        image: {{ .Values.image.app }}
-        ports:
-        - containerPort: {{ .Values.app.port }}
-        env:
-        - name: SERVER_PORT
-          value: "8080"
-        - name: MODEL_HOST
-          value: "http://model-service:{{ .Values.modelService.port }}"
-        envFrom:
-        - configMapRef:
-            name: app-config
+        - name: {{ .Values.app.name }}
+          image: {{ .Values.image.app }}
+          ports:
+            - containerPort: {{ .Values.app.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.app.name }}-config
+            - secretRef:
+                name: {{ .Values.app.name }}-secrets
+          {{- if .Values.storage.enabled }}
+          volumeMounts:
+              - name: shared-volume
+                mountPath: {{ .Values.storage.mountPath }}
+          {{- end }}
+      {{- if .Values.storage.enabled }}
+      volumes:
+        - name: shared-volume
+          hostPath:
+            path: {{ .Values.storage.path }}
+            type: DirectoryOrCreate
+      {{- end }}
