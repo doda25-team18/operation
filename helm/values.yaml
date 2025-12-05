@@ -37,9 +37,26 @@ storage:
 kube-prometheus-stack:
   prometheus:
     prometheusSpec:
-      serviceMonitorSelector: 
-        matchLabels: 
-          release: test-a3
-      podMonitorSelector: 
-        matchLabels: 
-          release: test-a3
+      serviceMonitorSelector: {}
+      podMonitorSelector: {}
+
+## Note: Copiliot assisted with the creation of the Grafana configuration below - specifically, the datasoruces section with the prompt "assist me in setting up Grafana in my helm values.yaml file"
+grafana:
+  enabled: true
+  
+  adminUser: admin
+  adminPassword: admin
+  
+  service:
+    type: ClusterIP
+    port: 80
+  
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+        - name: Prometheus
+          type: prometheus
+          url: http://test-a3-kube-prometheus-st-prometheus:9090
+          access: proxy
+          isDefault: true
