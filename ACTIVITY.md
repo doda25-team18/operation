@@ -62,3 +62,16 @@ No work
   - https://github.com/doda25-team18/operation/pull/28
 
       I worked on A2 and implemented step 20, which sets up Metallb.
+
+### Week Q2.4 (Dec 1+)
+
+- Samuel
+    - https://github.com/doda25-team18/app/pull/5
+
+      I worked on A3. I added a metrics endpoint to app, where 3 app-specific metrics can be pulled by Prometheus.
+
+- Diana
+    - https://github.com/doda25-team18/operation/pull/30
+ 
+      This week I worked on A3, on Prometheus monitoring support.
+  
