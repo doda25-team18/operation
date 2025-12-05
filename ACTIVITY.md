@@ -74,4 +74,8 @@ No work
     - https://github.com/doda25-team18/operation/pull/30
  
       This week I worked on A3, on Prometheus monitoring support.
-  
+
+- Jan
+  - https://github.com/doda25-team18/operation/pull/12
+    I have worked on A3 - Kubernetes Usage. I implemented requirements for Excellent, and
+    fixed/implemented some of the requirements for Good.
