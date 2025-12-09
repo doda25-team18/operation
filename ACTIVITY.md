@@ -83,6 +83,13 @@ No work
 - Fedor
   - [https://github.com/doda25-team18/operation/pull/34](https://github.com/doda25-team18/operation/pull/32)
     I have worked on A3 - Grafana. This part is still work in progress, with the current issue being Prometheus giving the error "Error scraping target: expected a valid start token, got "\n" ("INVALID") while parsing: "\n"". I also updated the readme with instructions on how to run the app without using minikube tunnel
--Yasar
-
+- Yasar 
+  - [https://github.com/doda25-team18/operation/pull/29] I have worked on A3 - Kubernetes Usage. I implemented requirements for sufficient, and
+      implemented some of the requirements for Good.
 ### Week Q2.4 (Dec 8+)
+
+- Yasar
+  - [https://github.com/doda25-team18/operation/pull/35]
+  This week I worked on A4 - Istio Traffic Management. I implemented complete Istio Service Mesh traffic management including Gateway and VirtualServices, 90/10 canary release traffic split with DestinationRules, consistent version routing (v1->v1, v2->v2), and sticky sessions using consistentHash cookies. All criteria for Excellent (9-10) have been implemented and tested.
+
+
