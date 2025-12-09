@@ -1,0 +1,42 @@
+{{- if .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Values.app.name }}-virtualservice
+  labels:
+    app: {{ .Values.app.name }}
+spec:
+  hosts:
+  - {{ .Values.ingress.host }}
+  {{- if .Values.ingress.prereleaseHost }}
+  - {{ .Values.ingress.prereleaseHost }}
+  {{- end }}
+  gateways:
+  - {{ .Values.app.name }}-gateway
+  http:
+  - match:
+    - headers:
+        cookie:
+          regex: "^(.*?;)?(version=v2)(;.*)?$"
+    route:
+    - destination:
+        host: {{ .Values.app.name }}-service
+        subset: v2
+  - match:
+    - headers:
+        cookie:
+          regex: "^(.*?;)?(version=v1)(;.*)?$"
+    route:
+    - destination:
+        host: {{ .Values.app.name }}-service
+        subset: v1
+  - route:
+    - destination:
+        host: {{ .Values.app.name }}-service
+        subset: v1
+      weight: {{ .Values.istio.trafficSplit.oldVersion }}
+    - destination:
+        host: {{ .Values.app.name }}-service
+        subset: v2
+      weight: {{ .Values.istio.trafficSplit.newVersion }}
+{{- end }}
