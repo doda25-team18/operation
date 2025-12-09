@@ -30,9 +30,6 @@ ssh-keys/
 *.pem
 *.key
 
-# Claude Code (local configuration)
-.claude/
-
 # MacOS
 .DS_Store
 .AppleDouble
