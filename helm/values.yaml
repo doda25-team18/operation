@@ -9,10 +9,12 @@ image:
 app:
   name: "app"
   port: 8080
+  version: "v1"
 
 modelService:
   name: "model-service"
   port: 8081
+  version: "v1"
 
 service:
   type: ClusterIP
@@ -33,6 +35,12 @@ storage:
   path: "/mnt/shared"
   mountPath: "/app/shared"
 
+istio:
+  enabled: true
+  gatewayName: "ingressgateway"
+  trafficSplit:
+    oldVersion: 90
+    newVersion: 10
 
 kube-prometheus-stack:
   prometheus:

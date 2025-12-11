@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.modelService.name }}
+        version: {{ .Values.modelService.version | default "v1" }}
     spec:
       containers:
       - name: {{ .Values.modelService.name }}

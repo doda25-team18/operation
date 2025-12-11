@@ -1,0 +1,40 @@
+{{- if .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: {{ .Values.app.name }}-destinationrule
+  labels:
+    app: {{ .Values.app.name }}
+spec:
+  host: {{ .Values.app.name }}-service
+  trafficPolicy:
+    loadBalancer:
+      consistentHash:
+        httpCookie:
+          name: version
+          path: /
+          ttl: 3600s
+  subsets:
+  - name: v1
+    labels:
+      app: {{ .Values.app.name }}
+      version: v1
+    trafficPolicy:
+      loadBalancer:
+        consistentHash:
+          httpCookie:
+            name: version
+            path: /
+            ttl: 3600s
+  - name: v2
+    labels:
+      app: {{ .Values.app.name }}
+      version: v2
+    trafficPolicy:
+      loadBalancer:
+        consistentHash:
+          httpCookie:
+            name: version
+            path: /
+            ttl: 3600s
+{{- end }}
