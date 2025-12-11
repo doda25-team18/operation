@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ratelimit-config
+  namespace: istio-system
+data:
+  config.yaml: |
+    domain: team18-ratelimit
+    descriptors:
+      # Global limit
+      - key: PATH
+        value: "/sms/"
+        rate_limit:
+          unit: minute
+          requests_per_unit: 10
