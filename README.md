@@ -108,3 +108,47 @@ To launch the application locally without using minikube tunnel:
 3. Update your `/etc/hosts` file (`C:\Windows\System32\drivers\etc\hosts` on Windows) by adding ```test.local <ingress ip address>```
 
 4. Open [test.local/sms](http://test.local/sms)
+
+---
+
+## Istio Service Mesh (A4)
+
+This project includes Istio traffic management with:
+- Gateway and VirtualServices for IngressGateway routing
+- 90/10 canary release traffic split
+- Consistent version routing (v1→v1, v2→v2)
+- Sticky sessions using consistentHash cookies
+
+### Prerequisites
+
+1. Install Istio (default profile):
+   ```bash
+   curl -L https://istio.io/downloadIstio | sh -
+   cd istio-1.28.1
+   export PATH=$PWD/bin:$PATH
+   istioctl install -y
+   ```
+
+2. Label namespace for Istio injection:
+   ```bash
+   kubectl label namespace default istio-injection=enabled
+   ```
+
+### Installation
+
+Install the Helm chart with Istio enabled:
+```bash
+helm upgrade --install team18-a4 ./helm \
+  --set istio.enabled=true \
+  --set istio.gatewayName=ingressgateway \
+  --set istio.trafficSplit.oldVersion=90 \
+  --set istio.trafficSplit.newVersion=10
+```
+
+### Configuration
+
+Istio settings in `helm/values.yaml`:
+- `istio.enabled`: Enable/disable Istio resources
+- `istio.gatewayName`: IngressGateway name (configurable)
+- `istio.trafficSplit.oldVersion`: Percentage to v1 (default: 90)
+- `istio.trafficSplit.newVersion`: Percentage to v2 (default: 10)

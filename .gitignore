@@ -8,12 +8,52 @@ docker-compose.override.yml
 # Docker volumes (if synced locally)
 model_data/
 
+# Vagrant
 inventory.cfg
 .vagrant/
 
 # K8s config file
 kubeconfig
-
 join_cmd.sh
 
+# Helm
 helm/charts/
+helm/Chart.lock
+helm/*.tgz
+
+# Istio installation (LARGE - don't commit!)
+istio-*/
+
+# SSH Keys (SENSITIVE!)
+ssh-keys/
+*.pub
+*.pem
+*.key
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+.#*
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Test artifacts
+cookies.txt
+/tmp/
+
+# Kubernetes secrets (if any)
+*-secret.yaml
+secrets/
