@@ -25,3 +25,8 @@ spec:
                 - request_headers:
                     header_name: ":path"
                     descriptor_key: "PATH"
+            - actions:
+                # Per-user limit
+                - request_headers:
+                    header_name: "X-User-ID"
+                    descriptor_key: "USER"
