@@ -93,3 +93,6 @@ No work
   This week I worked on A4 - Istio Traffic Management. I implemented complete Istio Service Mesh traffic management including Gateway and VirtualServices, 90/10 canary release traffic split with DestinationRules, consistent version routing (v1->v1, v2->v2), and sticky sessions using consistentHash cookies. All criteria for Excellent (9-10) have been implemented and tested.
 
 
+- Fedor
+  - [https://github.com/doda25-team18/operation/pull/39]
+  THis week I worked on A4 - specifically, the Continuous Experimentation part. I have written the JavaScript/Python/CSS code for the new feature and created documentation for it. I am also working on the metrics for said feature.
