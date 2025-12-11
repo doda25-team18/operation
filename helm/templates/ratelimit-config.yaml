@@ -13,3 +13,8 @@ data:
         rate_limit:
           unit: minute
           requests_per_unit: 10
+      # Per-user limit
+      - key: USER
+        rate_limit:
+          unit: minute
+          requests_per_unit: 5
