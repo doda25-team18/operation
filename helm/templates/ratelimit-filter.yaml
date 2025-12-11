@@ -1,3 +1,4 @@
+# Based on Istio rate limit example: https://istio.io/latest/docs/tasks/policy-enforcement/rate-limit/
 apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
