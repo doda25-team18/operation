@@ -96,3 +96,7 @@ No work
 - Fedor
   - [https://github.com/doda25-team18/operation/pull/39]
   THis week I worked on A4 - specifically, the Continuous Experimentation part. I have written the JavaScript/Python/CSS code for the new feature and created documentation for it. I am also working on the metrics for said feature.
+
+- Samuel
+  - https://github.com/doda25-team18/operation/pull/36
+  This week I wrote an extension proposal as part of week 4. It explains the need for Automated Acceptance Testing and an example of an implementation approach.
