@@ -96,3 +96,8 @@ No work
 - Fedor
   - [https://github.com/doda25-team18/operation/pull/39]
   THis week I worked on A4 - specifically, the Continuous Experimentation part. I have written the JavaScript/Python/CSS code for the new feature and created documentation for it. I am also working on the metrics for said feature.
+
+- Jan
+  - [https://github.com/doda25-team18/operation/pull/40]
+  This week I worked on A4 - Additional Istio use case. I implemented global and per-user rate
+    limiting.
