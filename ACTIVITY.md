@@ -86,7 +86,7 @@ No work
 - Yasar 
   - [https://github.com/doda25-team18/operation/pull/29] I have worked on A3 - Kubernetes Usage. I implemented requirements for sufficient, and
       implemented some of the requirements for Good.
-### Week Q2.4 (Dec 8+)
+### Week Q2.5 (Dec 8+)
 
 - Yasar
   - [https://github.com/doda25-team18/operation/pull/35]
@@ -100,3 +100,7 @@ No work
 - Samuel
   - https://github.com/doda25-team18/operation/pull/36
   This week I wrote an extension proposal as part of week 4. It explains the need for Automated Acceptance Testing and an example of an implementation approach.
+
+- Diana
+  - https://github.com/doda25-team18/operation/pull/38
+  This week I wrote the deployment documentation for our project from A4.
