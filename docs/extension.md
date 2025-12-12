@@ -1,11 +1,15 @@
 ## Extenstion Proposal
 This extension proposal advocates for the inclusion of **Automated Acceptance Testing** in the release pipeline. 
 ### Motivation
-![Delivery pipeline](resources/pipeline.png)
+![Delivery pipeline](resources/pipeline.png)[[6]](#6)
 
-When looking at a typical delivery pipeline as presented in the lectures, we see several techniques we implemented in our project to detect errors in our system (Build on commit, Continuous Experimentation). However, one that is severely lacking is automated testing. As it stands right now, a build that had only manual testing might be deployed to a fraction of the real userbase. This makes it more likely that bugs are only discovered late in the Software Development Life Cycle, making them much more costly.
+Figure 1 - A typical delivery pipeline
+
+When looking at a typical delivery pipeline in Figure 1, we see several techniques we implemented in our project to detect errors in our system (Build on commit, Continuous Experimentation). However, one that is severely lacking is automated testing. As it stands right now, a build that had only manual testing might be deployed to a fraction of the real userbase. This makes it more likely that bugs are only discovered late in the Software Development Life Cycle, making them much more costly. This effect is visualized in Figure 2.
 
 ![graphcost](resources/cost.png)[[1]](#1)
+
+Figure 2 - Relative cost of defects discovered in phases of the SDLC
 
 Automated unit tests are a part of the solution, but since these are less interesting from a release engineering perspective (running them would be a oneliner in the Github Workflow), this extension proposal explores Automated Acceptance testing.
 
@@ -39,3 +43,5 @@ Another potential issue is developer over reliance. Knowing their code will be t
 <a id="4">[4]</a> https://www.containerdays.io/blog/running-kubernetes-in-the-ci-pipeline/
 
 <a id="5">[5]</a> https://www.selenium.dev/documentation/grid/
+
+<a id="6">[6]</a> DODA slides, lecture Continuous Experimentation
