@@ -104,3 +104,7 @@ No work
 - Diana
   - https://github.com/doda25-team18/operation/pull/38
   This week I wrote the deployment documentation for our project from A4.
+
+- Sanjay
+  - https://github.com/doda25-team18/operation/pull/41
+  - Worked on Documentation for continuous experimentation
