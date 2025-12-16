@@ -1,6 +1,6 @@
 services:
   model-service:
-    image: ghcr.io/doda25-team18/model-service:0.2.0
+    image: "${MODEL_SERVICE_IMAGE}:${MODEL_SERVICE_VERSION}"
     container_name: model-service
     environment:
       MODEL_SERVICE_PORT: ${MODEL_SERVICE_PORT:-8081}
@@ -12,7 +12,7 @@ services:
     restart: unless-stopped
 
   app:
-    image: ghcr.io/doda25-team18/app:0.2.0
+    image: "${APP_IMAGE}:${APP_VERSION}"
     container_name: app
     depends_on:
       - model-service
