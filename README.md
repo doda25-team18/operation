@@ -165,10 +165,6 @@ Rate Limit Service:
 
 Deploy Istio’s Rate Limit Service (Redis + gRPC rate limit service):
 
-```bash
-kubectl apply -f istio-1.28.1/samples/ratelimit/rate-limit-service.yaml -n istio-system
-```
-
 ### Testing
 
 1. Global Rate Limit Test: Send more than 10 requests within a minute:
