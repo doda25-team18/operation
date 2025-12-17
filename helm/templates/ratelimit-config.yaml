@@ -7,7 +7,7 @@ metadata:
   namespace: istio-system
 data:
   config.yaml: |
-    domain: team18-ratelimit
+    domain: {{ .Values.ratelimit.domain }}
     descriptors:
       # Global limit
       - key: PATH
