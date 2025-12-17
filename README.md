@@ -152,3 +152,48 @@ Istio settings in `helm/values.yaml`:
 - `istio.gatewayName`: IngressGateway name (configurable)
 - `istio.trafficSplit.oldVersion`: Percentage to v1 (default: 90)
 - `istio.trafficSplit.newVersion`: Percentage to v2 (default: 10)
+
+## 6. Additional Use Case
+
+We implemented global and per-user rate limiting on the Istio Ingress Gateway using the Envoy Global
+Rate Limit Service:
+
+- Global limit (/sms/ path): Maximum 10 requests per minute across all users
+- Per-user limit (via X-User-ID header): Maximum 5 requests per minute per user
+
+### Testing
+
+1. Global Rate Limit Test: Send more than 10 requests within a minute:
+
+> Note: Use correct hostname! (+ /sms/ is required for global rate limit)
+
+```bash
+for i in {1..15}; do
+  echo "Request $i"
+  curl -I http://stable.team18.nl/sms/ 
+  echo ""
+done
+```
+
+Expected result:
+
+- First 10 requests → 200 OK
+- After limit → HTTP 429 Rate Limited
+
+2. Per-User Rate Limit Test: Send repeated requests using the same user ID:
+
+```bash
+for i in {1..7}; do
+  echo "Request $i - Alice"
+  curl -I -H "X-User-ID: alice" http://stable.team18.nl/
+  echo ""
+done
+echo "Request 8 - Bob"
+curl -i -H "X-User-ID: bob" http://stable.team18.nl/
+```
+
+Expected result:
+
+- First 5 requests → 200 OK
+- After limit → HTTP 429 Rate Limited
+- Different user -> 200 OK

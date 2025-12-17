@@ -51,3 +51,6 @@ kube-prometheus-stack:
       podMonitorSelector:
         matchLabels:
           release: test-a3
+
+ratelimit:
+  domain: "team18-ratelimit"
