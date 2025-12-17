@@ -161,10 +161,6 @@ Rate Limit Service:
 - Global limit (/sms/ path): Maximum 10 requests per minute across all users
 - Per-user limit (via X-User-ID header): Maximum 5 requests per minute per user
 
-### Prerequisites
-
-Deploy Istio’s Rate Limit Service (Redis + gRPC rate limit service):
-
 ### Testing
 
 1. Global Rate Limit Test: Send more than 10 requests within a minute:
