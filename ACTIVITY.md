@@ -86,7 +86,8 @@ No work
 - Yasar 
   - [https://github.com/doda25-team18/operation/pull/29] I have worked on A3 - Kubernetes Usage. I implemented requirements for sufficient, and
       implemented some of the requirements for Good.
-### Week Q2.4 (Dec 8+)
+
+### Week Q2.5 (Dec 8+)
 
 - Yasar
   - [https://github.com/doda25-team18/operation/pull/35]
@@ -113,8 +114,11 @@ No work
 - Sanjay
   - https://github.com/doda25-team18/operation/pull/41
   - Worked on Documentation for continuous experimentation
- 
-### Week Q2.5 (Dec 15+)
+
+### Week Q2.6 (Dec 15+)
 - Fedor
   - https://github.com/doda25-team18/operation/pull/43
   - Documentation now better structured, also mentions all the requirements stated in the instruction paragraph in the A4 assignment
+- Jan
+  - https://github.com/doda25-team18/operation/pull/42
+  - This week I reviewed the feedback for A1 and implemented missing requirements
