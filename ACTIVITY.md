@@ -113,3 +113,8 @@ No work
 - Sanjay
   - https://github.com/doda25-team18/operation/pull/41
   - Worked on Documentation for continuous experimentation
+ 
+### Week Q2.5 (Dec 15+)
+- Fedor
+  - https://github.com/doda25-team18/operation/pull/43
+  - Documentation now better structured, also mentions all the requirements stated in the instruction paragraph in the A4 assignment
