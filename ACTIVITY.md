@@ -122,3 +122,6 @@ No work
 - Jan
   - https://github.com/doda25-team18/operation/pull/42
   - This week I reviewed the feedback for A1 and implemented missing requirements
+- Samuel
+  - https://github.com/doda25-team18/operation/pull/44
+  - This week I continued working on A2, implementing step 21
