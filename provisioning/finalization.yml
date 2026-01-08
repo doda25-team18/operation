@@ -1,6 +1,6 @@
 ---
 - name: Finalization
-  hosts: all
+  hosts: ctrl
   become: yes
   tasks:
     - name: Create metallb dir
@@ -63,4 +63,79 @@
     - name: Apply L2Advertisement
       become_user: vagrant
       command: kubectl apply -f /tmp/metallb-l2-advertisement.yaml
+ 
+    - name: Create Istio installation directory
+      file:
+        path: /opt/istio
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0755'
 
+    - name: Check if Istio tarball already exists
+      stat:
+        path: /opt/istio/istio-1.25.2-linux-arm64.tar.gz
+      register: istio_tarball
+
+    - name: Download Istio 1.25.2
+      get_url:
+        url: https://github.com/istio/istio/releases/download/1.25.2/istio-1.25.2-linux-arm64.tar.gz
+        dest: /opt/istio/istio-1.25.2-linux-arm64.tar.gz
+        mode: '0644'
+        owner: vagrant
+        group: vagrant
+      when: not istio_tarball.stat.exists
+
+    - name: Check if Istio is already unpacked
+      stat:
+        path: /opt/istio/istio-1.25.2
+      register: istio_dir
+
+    - name: Unpack Istio tarball
+      unarchive:
+        src: /opt/istio/istio-1.25.2-linux-arm64.tar.gz
+        dest: /opt/istio/
+        remote_src: yes
+        owner: vagrant
+        group: vagrant
+      when: not istio_dir.stat.exists
+
+    - name: Check if istioctl is already in PATH
+      stat:
+        path: /usr/local/bin/istioctl
+      register: istioctl_symlink
+
+    - name: Add istioctl to PATH via symlink
+      file:
+        src: /opt/istio/istio-1.25.2/bin/istioctl
+        dest: /usr/local/bin/istioctl
+        state: link
+      when: not istioctl_symlink.stat.exists
+
+    - name: Check if Istio is already installed in cluster
+      become_user: vagrant
+      shell: kubectl get namespace istio-system 2>/dev/null
+      register: istio_namespace
+      failed_when: false
+      changed_when: false
+
+    - name: Create IstioOperator configuration for fixed IP
+      copy:
+        dest: /tmp/istio-operator-config.yaml
+        content: |
+          apiVersion: install.istio.io/v1alpha1
+          kind: IstioOperator
+          spec:
+            components:
+              ingressGateways:
+                - name: istio-ingressgateway
+                  enabled: true
+                  k8s:
+                    service:
+                      loadBalancerIP: 192.168.56.92
+        mode: '0644'
+
+    - name: Install Istio in cluster with fixed IP configuration
+      become_user: vagrant
+      command: /usr/local/bin/istioctl install -y -f /tmp/istio-operator-config.yaml
+      when: istio_namespace.rc != 0
