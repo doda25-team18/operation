@@ -47,10 +47,29 @@ kube-prometheus-stack:
     prometheusSpec:
       serviceMonitorSelector:
         matchLabels:
-          release: test-a3
+          release: team18-final
       podMonitorSelector:
         matchLabels:
-          release: test-a3
+          release: team18-final
+      ruleSelector:
+        matchLabels:
+          release: team18-final
+      ruleNamespaceSelector: { }
+
+  alertmanager:
+    enabled: true
+    config:
+      global:
+        smtp_smarthost: 'mailhog:1025'
+        smtp_from: 'alerts@team18.nl'
+      route:
+        receiver: 'email-notifications'
+        group_wait: 5s
+      receivers:
+        - name: 'email-notifications'
+          email_configs:
+            - to: 'developers@team18.nl'
+              send_resolved: true
 
 ratelimit:
   domain: "team18-ratelimit"

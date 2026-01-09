@@ -59,7 +59,7 @@ This project uses a Helm chart to deploy the application stack to Kubernetes.
 To install the application, run the following command from the `operation` directory. You can set the `ingress.host` to any hostname you prefer.
 
 ```bash
-helm install test-a3 ./helm --set ingress.host=test.local --set secrets.smtpPassword="your-secure-password"
+helm install team18-final ./helm --set ingress.host=test.local --set secrets.smtpPassword="your-secure-password"
 
 ```
 
@@ -152,6 +152,45 @@ Istio settings in `helm/values.yaml`:
 - `istio.gatewayName`: IngressGateway name (configurable)
 - `istio.trafficSplit.oldVersion`: Percentage to v1 (default: 90)
 - `istio.trafficSplit.newVersion`: Percentage to v2 (default: 10)
+
+## Alerting
+
+We have configured Prometheus and AlertManager to alert developers when the traffic is high.
+
+Use the following commands to open the respective UIs:
+
+**Prometheus (Alert Rules):**
+
+```bash
+minikube service team18-a4-kube-prometheus-prometheus --url
+```
+
+**AlertManager (Notification Status):**
+
+```bash
+minikube service team18-a4-kube-prometheus-alertmanager --url
+```
+
+**MailHog (Email Inbox):**
+
+```bash
+minikube service mailhog --url
+```
+
+### Triggering a Test Alert
+
+Run the following command in your terminal to generate enough traffic to trigger the
+`HighPredictionRequestRate` alert (it sends a few predict requests, exceeding the threshold of 2):
+Note: If alert is not fired immediately, wait a few seconds.
+
+```bash
+for i in {1..5}; do 
+  curl -X POST http://stable.team18.nl/sms/ \
+    -H "Content-Type: application/json" \
+    -d '{"sms": "Test alert trigger", "guess": "spam"}'; 
+  sleep 1; 
+done
+```
 
 ## 6. Additional Use Case
 
