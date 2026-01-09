@@ -125,3 +125,9 @@ No work
 - Samuel
   - https://github.com/doda25-team18/operation/pull/44
   - This week I continued working on A2, implementing step 21
+
+### Week Q2.7 (Jan 5+)
+
+- Jan
+  - https://github.com/doda25-team18/operation/pull/46
+  - This week I implemented Prometheus alerts for A3 – excellent.
