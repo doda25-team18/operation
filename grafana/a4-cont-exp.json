@@ -131,7 +131,7 @@
           "disableTextWrap": false,
           "editorMode": "builder",
           "exemplar": false,
-          "expr": "rate(num_predictions[$__rate_interval])",
+          "expr": "rate(num_predictions[$__interval])",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
@@ -154,12 +154,12 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "browser",
   "title": "A4-cont-exp",
   "uid": "029611de-e434-49e1-987f-021d581bda13",
-  "version": 7
+  "version": 8
 }
