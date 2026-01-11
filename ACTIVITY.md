@@ -139,3 +139,7 @@ No work
 - Diana
   - https://github.com/doda25-team18/operation/pull/48
   - This week, I worked on the Grafana dashboards from A3 - excellent.
+
+- Samuel
+  - https://github.com/doda25-team18/operation/pull/49
+  - This week I worked on A2 and completed step 22 of the provisioning
