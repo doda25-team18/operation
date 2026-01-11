@@ -131,3 +131,7 @@ No work
 - Jan
   - https://github.com/doda25-team18/operation/pull/46
   - This week I implemented Prometheus alerts for A3 – excellent.
+
+- Fedor
+  - https://github.com/doda25-team18/operation/pull/47
+  - This week I updated the document for cont exp and created the suitable dashboard to assist in the decision making process
