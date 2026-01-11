@@ -135,3 +135,7 @@ No work
 - Fedor
   - https://github.com/doda25-team18/operation/pull/47
   - This week I updated the document for cont exp and created the suitable dashboard to assist in the decision making process
+  
+- Diana
+  - https://github.com/doda25-team18/operation/pull/48
+  - This week, I worked on the Grafana dashboards from A3 - excellent.
