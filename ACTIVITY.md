@@ -128,6 +128,10 @@ No work
 
 ### Week Q2.7 (Jan 5+)
 
+- Yasar
+  - [https://github.com/doda25-team18/operation/pull/45]
+  - This week I worked on A2 Step 23 (Istio Installation).
+  
 - Jan
   - https://github.com/doda25-team18/operation/pull/46
   - This week I implemented Prometheus alerts for A3 – excellent.
