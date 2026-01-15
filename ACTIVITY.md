@@ -90,7 +90,7 @@ No work
 ### Week Q2.5 (Dec 8+)
 
 - Yasar
-  - [https://github.com/doda25-team18/operation/pull/35]
+  - [https://github.com/doda25-team18/operation/pull/37]
   This week I worked on A4 - Istio Traffic Management. I implemented complete Istio Service Mesh traffic management including Gateway and VirtualServices, 90/10 canary release traffic split with DestinationRules, consistent version routing (v1->v1, v2->v2), and sticky sessions using consistentHash cookies. All criteria for Excellent (9-10) have been implemented and tested.
 
 
@@ -125,3 +125,25 @@ No work
 - Samuel
   - https://github.com/doda25-team18/operation/pull/44
   - This week I continued working on A2, implementing step 21
+
+### Week Q2.7 (Jan 5+)
+
+- Yasar
+  - [https://github.com/doda25-team18/operation/pull/45]
+  - This week I worked on A2 Step 23 (Istio Installation).
+  
+- Jan
+  - https://github.com/doda25-team18/operation/pull/46
+  - This week I implemented Prometheus alerts for A3 – excellent.
+
+- Fedor
+  - https://github.com/doda25-team18/operation/pull/47
+  - This week I updated the document for cont exp and created the suitable dashboard to assist in the decision making process
+  
+- Diana
+  - https://github.com/doda25-team18/operation/pull/48
+  - This week, I worked on the Grafana dashboards from A3 - excellent.
+
+- Samuel
+  - https://github.com/doda25-team18/operation/pull/49
+  - This week I worked on A2 and completed step 22 of the provisioning

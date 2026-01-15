@@ -56,6 +56,18 @@ kube-prometheus-stack:
           release: team18-final
       ruleNamespaceSelector: { }
 
+  grafana:
+    enabled: true
+    adminUser: admin
+    adminPassword: admin
+
+    sidecar:
+      dashboards:
+        enabled: true
+        label: grafana_dashboard
+        labelValue: "1"
+        searchNamespace: ALL
+
   alertmanager:
     enabled: true
     config:
@@ -70,6 +82,7 @@ kube-prometheus-stack:
           email_configs:
             - to: 'developers@team18.nl'
               send_resolved: true
+          release: test-a3
 
 ratelimit:
   domain: "team18-ratelimit"

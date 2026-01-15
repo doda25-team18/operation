@@ -111,6 +111,40 @@ To launch the application locally without using minikube tunnel:
 
 ---
 
+## Grafana
+
+To see the Grafana dashboards, first run:
+
+```bash
+helm install a3 ./helm
+```
+
+Then, port-forward Grafana:
+
+```bash
+kubectl port-forward svc/a3-grafana 3000:80
+```
+
+and open: http://localhost:3000/. The login credentials are:
+
+Username: admin
+
+Password: admin
+
+When here, go to `Dashboards`, and you should see:
+- `decision-dashboard`
+- `metrics-dashboard`
+
+If they are not there, you can import the JSON files from `helm/dashboards/`
+
+(If you want to generate traffic while checking the dashboards, first run:
+```bash
+kubectl port-forward svc/app-service 8080:80
+```
+and go to http://localhost:8080/sms)
+
+---
+
 ## Istio Service Mesh (A4)
 
 This project includes Istio traffic management with:
