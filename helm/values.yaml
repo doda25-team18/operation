@@ -51,6 +51,18 @@ kube-prometheus-stack:
       podMonitorSelector:
         matchLabels:
           release: test-a3
+  grafana:
+    enabled: true
+    adminUser: admin
+    adminPassword: admin
+
+    sidecar:
+      dashboards:
+        enabled: true
+        label: grafana_dashboard
+        labelValue: "1"
+        searchNamespace: ALL
+
 
 ratelimit:
   domain: "team18-ratelimit"
