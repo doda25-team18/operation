@@ -59,7 +59,7 @@ This project uses a Helm chart to deploy the application stack to Kubernetes.
 To install the application, run the following command from the `operation` directory. You can set the `ingress.host` to any hostname you prefer.
 
 ```bash
-helm install test-a3 ./helm --set ingress.host=test.local --set secrets.smtpPassword="your-secure-password"
+helm install team18-final ./helm --set ingress.host=test.local --set secrets.smtpPassword="your-secure-password"
 
 ```
 
@@ -172,7 +172,7 @@ This project includes Istio traffic management with:
 
 Install the Helm chart with Istio enabled:
 ```bash
-helm upgrade --install team18-a4 ./helm \
+helm upgrade --install team18-final ./helm \
   --set istio.enabled=true \
   --set istio.gatewayName=ingressgateway \
   --set istio.trafficSplit.oldVersion=90 \
@@ -186,6 +186,51 @@ Istio settings in `helm/values.yaml`:
 - `istio.gatewayName`: IngressGateway name (configurable)
 - `istio.trafficSplit.oldVersion`: Percentage to v1 (default: 90)
 - `istio.trafficSplit.newVersion`: Percentage to v2 (default: 10)
+
+## Alerting
+
+We have configured Prometheus and AlertManager to alert developers when the traffic is high.
+
+Use the following commands to open the respective UIs:
+
+**Prometheus (Alert Rules):**
+
+```bash
+kubectl port-forward svc/team18-final-kube-promethe-prometheus 9090:9090
+```
+
+Open in browser: http://stable.team18.nl:9090/alerts
+
+**AlertManager (Notification Status):**
+
+```bash
+kubectl port-forward svc/team18-final-kube-promethe-alertmanager 9093:9093
+```
+
+Open in browser: http://stable.team18.nl:9093
+
+**MailHog (Email Inbox):**
+
+```bash
+kubectl port-forward svc/mailhog 8025:8025
+```
+
+Open in browser: http://stable.team18.nl:8025
+
+### Triggering a Test Alert
+
+Run the following command in your terminal to generate enough traffic to trigger the
+`HighPredictionRequestRate` alert (it sends a few predict requests, exceeding the threshold of 2):
+Note: If alert is not fired immediately, wait a few seconds.
+
+```bash
+for i in {1..5}; do 
+  curl -X POST http://stable.team18.nl/sms/ \
+    -H "Content-Type: application/json" \
+    -d '{"sms": "Test alert trigger", "guess": "spam"}'; 
+  sleep 1; 
+done
+```
 
 ## 6. Additional Use Case
 

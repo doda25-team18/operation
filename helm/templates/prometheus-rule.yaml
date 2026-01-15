@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: app-alerts
+  labels:
+    release: team18-final
+spec:
+  groups:
+    - name: app.rules
+      rules:
+        - alert: HighPredictionRequestRate
+          expr: sum(rate(num_predictions[1m])) * 60 > 2
+          for: 0s
+          labels:
+            severity: critical
+          annotations:
+            summary: "High prediction request rate"
+            description: "The service received more than 2 prediction requests per minute."

@@ -19,7 +19,7 @@ metadata:
   name: app-servicemonitor
   labels:
     app: app
-    release: test-a3
+    release: team18-final
 spec:
   selector:
     matchLabels:
