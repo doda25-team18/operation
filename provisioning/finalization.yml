@@ -118,6 +118,26 @@
       register: istio_namespace
       failed_when: false
       changed_when: false
+    
+    - name: Add nginx helm repo
+      become_user: vagrant
+      kubernetes.core.helm_repository:
+        name: ingress-nginx
+        repo_url: https://kubernetes.github.io/ingress-nginx
+    
+    - name: Deploy nginx chart
+      become_user: vagrant
+      kubernetes.core.helm:
+        name: ingresscontroller
+        chart_ref: ingress-nginx/ingress-nginx
+        values:
+          controller:
+            service:
+              loadBalancerIp: 192.168.56.90
+        release_namespace: nginx
+        create_namespace: true
+    
+
 
     - name: Create IstioOperator configuration for fixed IP
       copy:
