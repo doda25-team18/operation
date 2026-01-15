@@ -12,7 +12,7 @@ spec:
           expr: sum(rate(num_predictions[1m])) * 60 > 2
           for: 0s
           labels:
-            severity: warning
+            severity: critical
           annotations:
             summary: "High prediction request rate"
             description: "The service received more than 2 prediction requests per minute."

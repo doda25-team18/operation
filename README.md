@@ -172,7 +172,7 @@ This project includes Istio traffic management with:
 
 Install the Helm chart with Istio enabled:
 ```bash
-helm upgrade --install team18-a4 ./helm \
+helm upgrade --install team18-final ./helm \
   --set istio.enabled=true \
   --set istio.gatewayName=ingressgateway \
   --set istio.trafficSplit.oldVersion=90 \
@@ -196,20 +196,26 @@ Use the following commands to open the respective UIs:
 **Prometheus (Alert Rules):**
 
 ```bash
-minikube service team18-a4-kube-prometheus-prometheus --url
+kubectl port-forward svc/team18-final-kube-promethe-prometheus 9090:9090
 ```
+
+Open in browser: http://stable.team18.nl:9090/alerts
 
 **AlertManager (Notification Status):**
 
 ```bash
-minikube service team18-a4-kube-prometheus-alertmanager --url
+kubectl port-forward svc/team18-final-kube-promethe-alertmanager 9093:9093
 ```
+
+Open in browser: http://stable.team18.nl:9093
 
 **MailHog (Email Inbox):**
 
 ```bash
-minikube service mailhog --url
+kubectl port-forward svc/mailhog 8025:8025
 ```
+
+Open in browser: http://stable.team18.nl:8025
 
 ### Triggering a Test Alert
 

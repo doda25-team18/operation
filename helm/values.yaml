@@ -70,6 +70,11 @@ kube-prometheus-stack:
 
   alertmanager:
     enabled: true
+    alertmanagerSpec:
+      replicas: 1
+      podMetadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
     config:
       global:
         smtp_smarthost: 'mailhog:1025'
@@ -82,7 +87,8 @@ kube-prometheus-stack:
           email_configs:
             - to: 'developers@team18.nl'
               send_resolved: true
-          release: test-a3
+              require_tls: false
+        - name: 'null'
 
 ratelimit:
   domain: "team18-ratelimit"
