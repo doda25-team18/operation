@@ -5,7 +5,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   worker_count = 2
   controller_memory = 4096
   worker_memory = 6144
-  
+
+  # Shared folder for A3 (excellent)
+  config.vm.synced_folder "./shared", "/mnt/shared",
+    create: true,
+    owner: "vagrant",
+    group: "vagrant",
+    mount_options: ["dmode=777", "fmode=777"]
+
   # Controller node
   config.vm.define "ctrl" do |ctrl|
     ctrl.vm.box = "bento/ubuntu-24.04"

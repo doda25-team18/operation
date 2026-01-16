@@ -103,7 +103,7 @@
 
     # Step 10
     - name: Install containerd and runc
-      ansible.builtin.apt: 
+      ansible.builtin.apt:
         name:
           - containerd=1.7.24-0ubuntu1~24.04.2
           - runc=1.1.12-0ubuntu3
@@ -111,11 +111,11 @@
         update_cache: yes
 
     - name: Install Kubernetes tools
-      ansible.builtin.apt: 
+      ansible.builtin.apt:
         name:
-          - kubeadm=1.32.4-1.1 
-          - kubelet=1.32.4-1.1 
-          - kubectl=1.32.4-1.1 
+          - kubeadm=1.32.4-1.1
+          - kubelet=1.32.4-1.1
+          - kubectl=1.32.4-1.1
         state: present
         update_cache: yes
 
@@ -161,3 +161,12 @@
         name: kubelet
         state: started
         enabled: yes
+
+    # A3 excellent
+    - name: Initialize /mnt/shared mount point for shared valume
+      ansible.builtin.file:
+        path: /mnt/shared
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0777'
