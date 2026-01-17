@@ -1,6 +1,6 @@
 ---
 - name: Finalization
-  hosts: ctrl
+  hosts: all
   become: yes
   tasks:
     - name: Create metallb dir
@@ -72,15 +72,24 @@
         group: vagrant
         mode: '0755'
 
+    - name: Detect system architecture
+      command: dpkg --print-architecture
+      register: system_arch
+      changed_when: false
+
+    - name: Set Istio architecture variable
+      set_fact:
+        istio_arch: "{{ 'arm64' if system_arch.stdout == 'arm64' else 'amd64' }}"
+
     - name: Check if Istio tarball already exists
       stat:
-        path: /opt/istio/istio-1.25.2-linux-arm64.tar.gz
+        path: "/opt/istio/istio-1.25.2-linux-{{ istio_arch }}.tar.gz"
       register: istio_tarball
 
     - name: Download Istio 1.25.2
       get_url:
-        url: https://github.com/istio/istio/releases/download/1.25.2/istio-1.25.2-linux-arm64.tar.gz
-        dest: /opt/istio/istio-1.25.2-linux-arm64.tar.gz
+        url: "https://github.com/istio/istio/releases/download/1.25.2/istio-1.25.2-linux-{{ istio_arch }}.tar.gz"
+        dest: "/opt/istio/istio-1.25.2-linux-{{ istio_arch }}.tar.gz"
         mode: '0644'
         owner: vagrant
         group: vagrant
@@ -93,7 +102,7 @@
 
     - name: Unpack Istio tarball
       unarchive:
-        src: /opt/istio/istio-1.25.2-linux-arm64.tar.gz
+        src: "/opt/istio/istio-1.25.2-linux-{{ istio_arch }}.tar.gz"
         dest: /opt/istio/
         remote_src: yes
         owner: vagrant
