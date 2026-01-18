@@ -31,15 +31,7 @@
     - name: Create MetalLB IPAddressPool
       copy:
         dest: /tmp/metallb-ip-pool.yaml
-        content: |
-          apiVersion: metallb.io/v1beta1
-          kind: IPAddressPool
-          metadata:
-            name: first-pool
-            namespace: metallb-system
-          spec:
-            addresses:
-              - 192.168.56.90-192.168.56.99
+        src: ./local/metallb-ip-pool.yaml
 
     - name: Apply IPAddressPool
       become_user: vagrant
@@ -50,15 +42,7 @@
     - name: Create MetalLB L2Advertisement
       copy:
         dest: /tmp/metallb-l2-advertisement.yaml
-        content: |
-          apiVersion: metallb.io/v1beta1
-          kind: L2Advertisement
-          metadata:
-            name: example
-            namespace: metallb-system
-          spec:
-            ipAddressPools:
-              - first-pool
+        src: ./local/metallb-l2-advertisement.yaml
 
     - name: Apply L2Advertisement
       become_user: vagrant
@@ -163,12 +147,7 @@
     - name: Create admin ServiceAccount
       copy:
         dest: /tmp/admin-serviceaccount.yaml
-        content: |
-          apiVersion: v1
-          kind: ServiceAccount
-          metadata:
-            name: admin-user
-            namespace: kubernetes-dashboard
+        src: ./local/admin-serviceaccount.yaml
     
     - name: Apply admin Serviceaccount
       become_user: vagrant
@@ -178,19 +157,8 @@
     - name: Create rolebinding for admin
       copy:
         dest: /tmp/admin-rolebinding.yaml
-        content: |
-          apiVersion: rbac.authorization.k8s.io/v1
-          kind: ClusterRoleBinding
-          metadata:
-            name: admin-user
-          roleRef:
-            apiGroup: rbac.authorization.k8s.io
-            kind: ClusterRole
-            name: cluster-admin
-          subjects:
-          - kind: ServiceAccount
-            name: admin-user
-            namespace: kubernetes-dashboard
+        src: ./local/admin-rolebinding.yaml
+
     
     - name: Apply admin rolebinding
       become_user: vagrant
@@ -216,31 +184,8 @@
     - name: Create Ingress for Kubernetes Dashboard
       copy:
         dest: /tmp/dashboard-ingress.yaml
-        content: |
-          apiVersion: networking.k8s.io/v1
-          kind: Ingress
-          metadata:
-            name: kubernetes-dashboard
-            namespace: kubernetes-dashboard
-            annotations:
-              nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-          spec:
-            ingressClassName: nginx
-            tls:
-              - hosts:
-                  - dashboard.local
-                secretName: dashboard-certs
-            rules:
-              - host: dashboard.local
-                http:
-                  paths:
-                    - path: /
-                      pathType: Prefix
-                      backend:
-                        service:
-                          name: kubernetesdashboard-kong-proxy
-                          port:
-                            number: 443
+        src: ./local/dashboard-ingress.yaml
+
 
     - name: Apply dashboard ingress
       become_user: vagrant
@@ -251,17 +196,7 @@
     - name: Create IstioOperator configuration for fixed IP
       copy:
         dest: /tmp/istio-operator-config.yaml
-        content: |
-          apiVersion: install.istio.io/v1alpha1
-          kind: IstioOperator
-          spec:
-            components:
-              ingressGateways:
-                - name: istio-ingressgateway
-                  enabled: true
-                  k8s:
-                    service:
-                      loadBalancerIP: 192.168.56.92
+        src: ./local/istio-operator-config.yaml
         mode: '0644'
 
     - name: Install Istio in cluster with fixed IP configuration
