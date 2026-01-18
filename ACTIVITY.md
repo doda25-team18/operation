@@ -147,3 +147,11 @@ No work
 - Samuel
   - https://github.com/doda25-team18/operation/pull/49
   - This week I worked on A2 and completed step 22 of the provisioning
+
+### Week Q2.8 (Jan 12+)
+
+- Yasar
+  - https://github.com/doda25-team18/operation/pull/50
+  - Fixed A2 Step 23 (Istio provisioning): removed auto-finalization from Vagrantfile, added architecture detection for Istio download (arm64/amd64 support). Done with help of Claude Code.
+  - https://github.com/doda25-team18/operation/pull/52
+  - Optimized vagrant up speed: combined apt package installations into single call, replaced slow Helm apt repository with direct binary download, added architecture detection for Helm. Done with help of Claude Code.
