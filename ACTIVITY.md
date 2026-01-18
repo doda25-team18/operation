@@ -147,3 +147,10 @@ No work
 - Samuel
   - https://github.com/doda25-team18/operation/pull/49
   - This week I worked on A2 and completed step 22 of the provisioning
+
+### Week Q2.8 (Jan 12+)
+
+- Jan
+  - https://github.com/doda25-team18/operation/pull/51
+  - This week I added a fix for alertmanager, I added a fix for vagrant hostnames issue and I made
+    all VMs mount the same VB folder feature
