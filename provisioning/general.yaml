@@ -22,11 +22,8 @@
         # Key is generated using gemini LLM when asked for ideas on how to optimize this step. It concatenates the ssh keys together instead of submitting each individually, which is much faster.
         key: "{{ query('file', *query('fileglob', playbook_dir + '/../ssh-keys/*.pub')) | join('\n') }}"
 
-    - name: Unmount swap
-      ansible.posix.mount:
-        name: swap
-        fstype: swap
-        state: absent
+    - name: Disable swap for for the running system
+      ansible.builtin.command: swapoff -a
 
     - name: Remove swap entry from /etc/fstab
       ansible.builtin.lineinfile:
