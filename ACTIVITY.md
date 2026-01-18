@@ -164,3 +164,8 @@ No work
 - Samuel
   - https://github.com/doda25-team18/operation/pull/53
   - I worked on A2 and implemented various optimizations for the different ansible playbooks, including speedups, local file versions of kubectl .yml files, fixing all ansible warnings (internal warnings are now suppressed as well)
+
+
+- Fedor
+  - https://github.com/doda25-team18/app/pull/7
+  - This week I re-did the accuracy score counter feature, as the other approach was flawed and didn't work properly
