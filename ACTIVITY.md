@@ -169,3 +169,7 @@ No work
 - Fedor
   - https://github.com/doda25-team18/app/pull/7
   - This week I re-did the accuracy score counter feature, as the other approach was flawed and didn't work properly
+
+- Diana
+  - https://github.com/doda25-team18/operation/pull/54
+  - This week I worked on A4, where I finished the deployment documentation. I added three diagrams and also finished writing some missing parts.
