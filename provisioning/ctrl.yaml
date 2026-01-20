@@ -64,7 +64,6 @@
       become_user: vagrant
       command: kubectl apply -f /flannel/kube-flannel.yml
 
-    ## Note: Helm binary download method (faster than apt repository) implemented with help of Claude Code
     # Helm binary download (faster than apt repository method)
     - name: Check if Helm is already installed
       ansible.builtin.stat:
@@ -84,7 +83,7 @@
 
     - name: Download Helm binary archive
       ansible.builtin.get_url:
-        url: "https://get.helm.sh/helm-v3.17.0-linux-{{ helm_arch_name }}.tar.gz"
+        url: "https://get.helm.sh/helm-v3.19.4-linux-{{ helm_arch_name }}.tar.gz"
         dest: /tmp/helm.tar.gz
         mode: '0644'
       when: not helm_binary.stat.exists
