@@ -155,3 +155,12 @@
         name: kubelet
         state: started
         enabled: yes
+
+    # A3 excellent
+    - name: Initialize /mnt/shared mount point for shared valume
+      ansible.builtin.file:
+        path: /mnt/shared
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0777'
