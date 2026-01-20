@@ -100,24 +100,18 @@
     - name: Update apt cache after adding Kubernetes repository
       ansible.builtin.apt:
         update_cache: yes
+        cache_valid_time: 3600
 
-    # Step 10
-    - name: Install containerd and runc
+    # Step 10: Install all required packages in one apt call for efficiency
+    - name: Install containerd, runc and Kubernetes tools
       ansible.builtin.apt:
         name:
           - containerd=1.7.24-0ubuntu1~24.04.2
           - runc=1.1.12-0ubuntu3
-        state: present
-        update_cache: yes
-
-    - name: Install Kubernetes tools
-      ansible.builtin.apt:
-        name:
           - kubeadm=1.32.4-1.1
           - kubelet=1.32.4-1.1
           - kubectl=1.32.4-1.1
         state: present
-        update_cache: yes
 
     # Step 11
     - name: Ensure /etc/containerd directory exists
