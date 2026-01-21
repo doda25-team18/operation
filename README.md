@@ -275,26 +275,13 @@ This project includes Istio traffic management with:
 - Consistent version routing (v1→v1, v2→v2)
 - Sticky sessions using consistentHash cookies
 
-### Prerequisites
-
-1. Install Istio (default profile):
-   ```bash
-   curl -L https://istio.io/downloadIstio | sh -
-   cd istio-1.28.1
-   export PATH=$PWD/bin:$PATH
-   istioctl install -y
-   ```
-
-2. Label namespace for Istio injection:
-   ```bash
-   kubectl label namespace default istio-injection=enabled
-   ```
-
 ### Installation
 
 Install the Helm chart with Istio enabled:
 ```bash
 helm upgrade --install team18-final ./helm \
+  --set ingress.host=stable.team18.nl \
+  --set secrets.smtpPassword="your-secure-password" \
   --set istio.enabled=true \
   --set istio.gatewayName=ingressgateway \
   --set istio.trafficSplit.oldVersion=90 \
@@ -309,7 +296,7 @@ Istio settings in `helm/values.yaml`:
 - `istio.trafficSplit.oldVersion`: Percentage to v1 (default: 90)
 - `istio.trafficSplit.newVersion`: Percentage to v2 (default: 10)
 
-## 6. Additional Use Case
+### Additional Use Case
 
 We implemented global and per-user rate limiting on the Istio Ingress Gateway using the Envoy Global
 Rate Limit Service:
@@ -317,7 +304,7 @@ Rate Limit Service:
 - Global limit (/sms/ path): Maximum 10 requests per minute across all users
 - Per-user limit (via X-User-ID header): Maximum 5 requests per minute per user
 
-### Testing
+#### Testing
 
 1. Global Rate Limit Test: Send more than 10 requests within a minute:
 
