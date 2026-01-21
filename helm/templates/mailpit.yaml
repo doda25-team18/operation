@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mailhog
+  name: mailpit
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mailhog
+      app: mailpit
   template:
     metadata:
       labels:
-        app: mailhog
+        app: mailpit
       annotations:
         sidecar.istio.io/inject: "false"
     spec:
       containers:
-        - name: mailhog
-          image: mailhog/mailhog:latest
+        - name: mailpit
+          image: axllent/mailpit:latest
           ports:
             - containerPort: 1025  # SMTP
             - containerPort: 8025  # Web UI
@@ -24,10 +24,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mailhog
+  name: mailpit
 spec:
   selector:
-    app: mailhog
+    app: mailpit
   ports:
     - name: smtp
       port: 1025
