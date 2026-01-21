@@ -3,7 +3,7 @@ replicaCount:
   modelService: 1
 
 image:
-  app: ghcr.io/doda25-team18/app:0.4.0
+  app: ghcr.io/doda25-team18/app:0.5.0
   model: ghcr.io/doda25-team18/model-service:0.2.0
 
 app:
@@ -15,6 +15,16 @@ modelService:
   name: "model-service"
   port: 8081
   version: "v1"
+
+appV2:
+  enabled: true
+  image: ghcr.io/doda25-team18/app:0.5.0
+  replicaCount: 1
+
+modelServiceV2:
+  enabled: true
+  image: ghcr.io/doda25-team18/model-service:0.2.0
+  replicaCount: 1
 
 service:
   type: ClusterIP

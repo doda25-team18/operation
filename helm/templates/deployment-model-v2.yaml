@@ -1,0 +1,31 @@
+{{- if .Values.modelServiceV2 }}
+{{- if .Values.modelServiceV2.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.modelService.name }}-v2
+  labels:
+    app: {{ .Values.modelService.name }}
+    version: v2
+spec:
+  replicas: {{ .Values.modelServiceV2.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+      app: {{ .Values.modelService.name }}
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.modelService.name }}
+        version: v2
+    spec:
+      containers:
+      - name: {{ .Values.modelService.name }}
+        image: {{ .Values.modelServiceV2.image }}
+        ports:
+        - containerPort: {{ .Values.modelService.port }}
+        env:
+        - name: MODEL_SERVICE_PORT
+          value: "{{ .Values.modelService.port }}"
+{{- end }}
+{{- end }}

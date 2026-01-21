@@ -1,28 +1,32 @@
+{{- if .Values.appV2 }}
+{{- if .Values.appV2.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.app.name }}
+  name: {{ .Values.app.name }}-v2
   labels:
     app: {{ .Values.app.name }}
+    version: v2
 spec:
-  replicas: {{ .Values.replicaCount.app }}
+  replicas: {{ .Values.appV2.replicaCount | default 1 }}
   selector:
     matchLabels:
       app: {{ .Values.app.name }}
+      version: v2
   template:
     metadata:
       labels:
         app: {{ .Values.app.name }}
-        version: {{ .Values.app.version | default "v1" }}
+        version: v2
     spec:
       containers:
         - name: {{ .Values.app.name }}
-          image: {{ .Values.image.app }}
+          image: {{ .Values.appV2.image }}
           ports:
             - containerPort: {{ .Values.app.port }}
           env:
             - name: SHOW_ACCURACY
-              value: "false"
+              value: "true"
           envFrom:
             - configMapRef:
                 name: {{ .Values.app.name }}-config
@@ -40,3 +44,5 @@ spec:
             path: {{ .Values.storage.path }}
             type: DirectoryOrCreate
       {{- end }}
+{{- end }}
+{{- end }}
