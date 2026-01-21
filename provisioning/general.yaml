@@ -19,12 +19,11 @@
       ansible.posix.authorized_key:
         user: vagrant
         state: present
-        key: "{{ lookup('file', item) }}"
-      with_fileglob:
-        - "{{ playbook_dir }}/../ssh-keys/*.pub"
+        # Key is generated using gemini LLM when asked for ideas on how to optimize this step. It concatenates the ssh keys together instead of submitting each individually, which is much faster.
+        key: "{{ query('file', *query('fileglob', playbook_dir + '/../ssh-keys/*.pub')) | join('\n') }}"
 
     - name: Disable swap for for the running system
-      ansible.builtin.shell: swapoff -a
+      ansible.builtin.command: swapoff -a
 
     - name: Remove swap entry from /etc/fstab
       ansible.builtin.lineinfile:
@@ -125,7 +124,7 @@
       args:
         creates: /etc/containerd/config.toml
 
-    - name: Disable AppArmore
+    - name: Disable AppArmor
       ansible.builtin.lineinfile:
         path: /etc/containerd/config.toml
         regexp: '^\s*disable_apparmor'
