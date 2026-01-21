@@ -77,7 +77,7 @@ kube-prometheus-stack:
           sidecar.istio.io/inject: "false"
     config:
       global:
-        smtp_smarthost: 'mailhog:1025'
+        smtp_smarthost: 'mailpit:1025'
         smtp_from: 'alerts@team18.nl'
       route:
         receiver: 'email-notifications'
