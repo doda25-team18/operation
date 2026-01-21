@@ -48,6 +48,59 @@ To stop the application, run:
 docker compose down
 ```
 
+## Provisioning a Kubernetes Cluster (A2)
+
+This repository provisions a complete Kubernetes cluster using **Vagrant**, **VirtualBox**, and *
+*Ansible**.
+
+### Provision the Cluster
+
+```bash
+vagrant up --provision
+```
+
+### Install Cluster Add-ons (MetalLB, Ingress, Dashboard)
+
+```bash
+ansible-playbook -u vagrant -i 192.168.56.100, provisioning/finalization.yml
+```
+
+### Access the VMs
+
+Controller node:
+
+```bash
+vagrant ssh ctrl
+```
+
+Worker nodes:
+
+```bash
+vagrant ssh node-{i} # Replace i with a number
+```
+
+### Access the Kubernetes Dashboard
+
+1. Add dashboard domain on the host:
+
+```
+192.168.56.90 dashboard.local
+```
+
+2. Generate login token on the controller:
+
+```bash
+kubectl -n kubernetes-dashboard create token admin-user
+```
+
+3. Open in browser:
+
+```
+http://dashboard.local
+```
+
+Login using the generated token.
+
 ---
 
 ## Kubernetes Deployment
