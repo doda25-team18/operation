@@ -47,7 +47,7 @@
     - name: Apply L2Advertisement
       become_user: vagrant
       command: kubectl apply -f /tmp/metallb-l2-advertisement.yaml
- 
+
     - name: Create Istio installation directory
       file:
         path: /opt/istio
@@ -111,13 +111,13 @@
       register: istio_namespace
       failed_when: false
       changed_when: false
-    
+
     - name: Add nginx helm repo
       become_user: vagrant
       kubernetes.core.helm_repository:
         name: ingress-nginx
         repo_url: https://kubernetes.github.io/ingress-nginx
-    
+
     - name: Deploy nginx chart
       become_user: vagrant
       kubernetes.core.helm:
@@ -129,13 +129,21 @@
               loadBalancerIp: 192.168.56.90
         release_namespace: nginx
         create_namespace: true
-    
+
+    - name: Wait for NGINX Ingress Controller to be ready
+      become_user: vagrant
+      shell: |
+        kubectl wait --namespace nginx \
+          --for=condition=ready pod \
+          --selector=app.kubernetes.io/component=controller \
+          --timeout=120s
+
     - name: Add kubernetes dashboard helm repo
       become_user: vagrant
       kubernetes.core.helm_repository:
         name: kubernetes-dashboard
         repo_url: https://kubernetes.github.io/dashboard
-    
+
     - name: Deploy kubernetes dashboard
       become_user: vagrant
       kubernetes.core.helm:
@@ -148,7 +156,7 @@
       copy:
         dest: /tmp/admin-serviceaccount.yaml
         src: ./local/admin-serviceaccount.yaml
-    
+
     - name: Apply admin Serviceaccount
       become_user: vagrant
       command: kubectl apply -f /tmp/admin-serviceaccount.yaml
@@ -159,7 +167,7 @@
         dest: /tmp/admin-rolebinding.yaml
         src: ./local/admin-rolebinding.yaml
 
-    
+
     - name: Apply admin rolebinding
       become_user: vagrant
       command: kubectl apply -f /tmp/admin-rolebinding.yaml
@@ -190,7 +198,7 @@
     - name: Apply dashboard ingress
       become_user: vagrant
       command: kubectl apply -f /tmp/dashboard-ingress.yaml
-    
+
 
 
     - name: Create IstioOperator configuration for fixed IP
