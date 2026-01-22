@@ -173,3 +173,10 @@ No work
 - Diana
   - https://github.com/doda25-team18/operation/pull/54
   - This week I worked on A4, where I finished the deployment documentation. I added three diagrams and also finished writing some missing parts.
+
+### Week Q2.9 (Jan 19+)
+
+- Jan
+  - https://github.com/doda25-team18/operation/pull/56
+  - This week I fixed a bug in finalization.yml and switched from Mailhog to Mailpit for alert
+    delivery. Also I improved READMEs
