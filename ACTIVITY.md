@@ -180,3 +180,7 @@ No work
   - https://github.com/doda25-team18/operation/pull/56
   - This week I fixed a bug in finalization.yml and switched from Mailhog to Mailpit for alert
     delivery. Also I improved READMEs
+
+- Yasar
+  - https://github.com/doda25-team18/operation/pull/58
+  - Completed A4 Continuous Experimentation: Added v2 canary deployment (deployment-app-v2.yaml) for A/B testing, enabling 90/10 traffic split between stable (v1) and canary (v2) versions. Updated values.yaml with canary configuration and fixed v1 deployment labels/selectors. Also added screenshot of decision dashboard to documentation.
