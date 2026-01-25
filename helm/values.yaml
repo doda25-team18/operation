@@ -44,8 +44,8 @@ istio:
   enabled: true
   gatewayName: "ingressgateway"
   trafficSplit:
-    oldVersion: 50
-    newVersion: 50
+    oldVersion: 90
+    newVersion: 10
 
 kube-prometheus-stack:
   prometheus:
