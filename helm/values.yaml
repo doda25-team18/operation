@@ -35,6 +35,11 @@ storage:
   path: "/mnt/shared"
   mountPath: "/app/shared"
 
+canary:
+  enabled: true
+  image: ghcr.io/doda25-team18/app:0.6.0  # v2 canary image with accuracy score feature
+  replicaCount: 1
+
 istio:
   enabled: true
   gatewayName: "ingressgateway"
