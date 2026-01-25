@@ -98,7 +98,7 @@
                 "value": {
                   "legend": false,
                   "tooltip": false,
-                  "viz": true
+                  "viz": false
                 }
               }
             ]
@@ -133,7 +133,7 @@
           "exemplar": false,
           "expr": "rate(num_predictions[$__interval])",
           "fullMetaSearch": false,
-          "includeNullMetadata": true,
+          "includeNullMetadata": false,
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -161,5 +161,5 @@
   "timezone": "browser",
   "title": "A4-cont-exp",
   "uid": "029611de-e434-49e1-987f-021d581bda13",
-  "version": 8
+  "version": 1
 }
