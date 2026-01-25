@@ -37,15 +37,15 @@ storage:
 
 canary:
   enabled: true
-  image: ghcr.io/doda25-team18/app:0.5.0  # v2 canary image with accuracy score feature
+  image: ghcr.io/doda25-team18/app:0.6.0  # v2 canary image with accuracy score feature
   replicaCount: 1
 
 istio:
   enabled: true
   gatewayName: "ingressgateway"
   trafficSplit:
-    oldVersion: 90
-    newVersion: 10
+    oldVersion: 50
+    newVersion: 50
 
 kube-prometheus-stack:
   prometheus:
