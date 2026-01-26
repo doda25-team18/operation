@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 29,
+  "id": 31,
   "links": [],
   "panels": [
     {
@@ -129,9 +129,9 @@
       "targets": [
         {
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(num_predictions[$__interval])",
+          "expr": "sum by (version) (label_replace(rate(num_predictions[$__interval]), \"version\", \"$1\", \"pod\", \"(app-v[0-9]).*\"))",
           "fullMetaSearch": false,
           "includeNullMetadata": false,
           "instant": false,
