@@ -48,176 +48,184 @@ To stop the application, run:
 docker compose down
 ```
 
+## Provisioning a Kubernetes Cluster (A2)
+
+This repository provisions a complete Kubernetes cluster using **Vagrant**, **VirtualBox**, and *
+*Ansible**.
+
+### Provision the Cluster
+
+```bash
+vagrant up --provision
+```
+
+### Install Cluster Add-ons (MetalLB, Ingress, Dashboard)
+
+```bash
+ansible-playbook -u vagrant -i 192.168.56.100, provisioning/finalization.yml
+```
+
+### Access the VMs
+
+Controller node:
+
+```bash
+vagrant ssh ctrl
+```
+
+Worker nodes:
+
+```bash
+vagrant ssh node-{i} # Replace i with a number
+```
+
+### Access the Kubernetes Dashboard
+
+1. Add dashboard domain on the host:
+
+```
+192.168.56.90 dashboard.local
+```
+
+2. Generate login token on the controller:
+
+```bash
+kubectl -n kubernetes-dashboard create token admin-user
+```
+
+3. Open in browser:
+
+```
+http://dashboard.local
+```
+
+Login using the generated token.
+
 ---
 
-## Kubernetes Deployment
+## Operate and Monitor Kubernetes (A3)
 
 This project uses a Helm chart to deploy the application stack to Kubernetes.
 
-### Installation
+### 1. Prerequisites
 
-To install the application, run the following command from the `operation` directory. You can set the `ingress.host` to any hostname you prefer.
+Before installing the application, ensure your cluster is ready:
 
-```bash
-helm install team18-final ./helm --set ingress.host=test.local --set secrets.smtpPassword="your-secure-password"
+#### Option A: Custom Provisioned Cluster
 
-```
+Ensure you have a provisioned kubernetes cluster (A2) with:
 
-### Accessing on Localhost (Minikube on macOS/Windows)
+- Nginx Ingress Controller
+- MetalLB (LoadBalancer)
+- Istio Service Mesh
 
-Due to the network limitations of Minikube when using the Docker driver on macOS and Windows, the Ingress IP is not directly routable from the host machine. To access the application locally, follow these steps after installing the Helm chart:
+#### Option B: Minikube
 
-1.  **Update your hosts file:**
-    Ensure your `/etc/hosts` file (or `C:\Windows\System32\drivers\etc\hosts` on Windows) contains an entry for your chosen hostname pointing to `127.0.0.1`.
-    127.0.0.1 test.local
-   
-
-2.  **Forward the Ingress port:**
-    Open a **separate terminal window** and run the following command. This will forward your local port 80 to the Ingress controller inside the Minikube cluster. This requires `sudo` because it uses a privileged port.
-
-    ```bash
-    sudo kubectl port-forward --namespace ingress-nginx service/ingress-nginx-controller 80:80
-    ``` 
-
-    Keep this terminal window running.
-
-4.  **Access the application:**
-    You can now access the application in your browser at the hostname you configured, without any port number:
-    
-    [http://test.local](http://test.local)
-
-This method allows you to test the full Ingress setup locally. On a cloud-based Kubernetes cluster, the `LoadBalancer` service would get a real external IP, and this port-forwarding step would not be necessary.
-
-
-### Accessing on LocalHost (without using Minikube tunnel, with ingress)
-
-To launch the application locally without using minikube tunnel:
-
-1. **Enable ingress:**
-    This can be done by running
-   ```bash
-    minikube addons enable ingress
-   ```
-
-2. **Get ingress ip address**
-    By running
-   ```bash
-       kubectl get ingress
-   ```
-
-3. Update your `/etc/hosts` file (`C:\Windows\System32\drivers\etc\hosts` on Windows) by adding ```test.local <ingress ip address>```
-
-4. Open [test.local/sms](http://test.local/sms)
-
----
-
-## Grafana
-
-To see the Grafana dashboards, first run:
+If testing on Minikube, start the cluster and install Istio manually:
 
 ```bash
-helm install a3 ./helm
+minikube start --addons=ingress
+# Install Istio (default profile)
+curl -L https://istio.io/downloadIstio | sh -
+cd istio-1.28.1 && export PATH=$PWD/bin:$PATH
+istioctl install -y
+# Enable automatic sidecar injection
+kubectl label namespace default istio-injection=enabled
 ```
 
-Then, port-forward Grafana:
+### 2. Helm Installation
 
-```bash
-kubectl port-forward svc/a3-grafana 3000:80
-```
+Run the following command from the `operation` directory (or `/vagrant` if you are logged into the
+`ctrl` VM).
 
-and open: http://localhost:3000/. The login credentials are:
+You can set the `ingress.host` to any hostname you prefer (e.g., `stable.team18.nl`). This README
+uses `stable.team18.nl` for all examples.
 
-Username: admin
-
-Password: admin
-
-When here, go to `Dashboards`, and you should see:
-- `decision-dashboard`
-- `metrics-dashboard`
-
-If they are not there, you can import the JSON files from `helm/dashboards/`
-
-(If you want to generate traffic while checking the dashboards, first run:
-```bash
-kubectl port-forward svc/app-service 8080:80
-```
-and go to http://localhost:8080/sms)
-
----
-
-## Istio Service Mesh (A4)
-
-This project includes Istio traffic management with:
-- Gateway and VirtualServices for IngressGateway routing
-- 90/10 canary release traffic split
-- Consistent version routing (v1→v1, v2→v2)
-- Sticky sessions using consistentHash cookies
-
-### Prerequisites
-
-1. Install Istio (default profile):
-   ```bash
-   curl -L https://istio.io/downloadIstio | sh -
-   cd istio-1.28.1
-   export PATH=$PWD/bin:$PATH
-   istioctl install -y
-   ```
-
-2. Label namespace for Istio injection:
-   ```bash
-   kubectl label namespace default istio-injection=enabled
-   ```
-
-### Installation
-
-Install the Helm chart with Istio enabled:
 ```bash
 helm upgrade --install team18-final ./helm \
-  --set istio.enabled=true \
-  --set istio.gatewayName=ingressgateway \
-  --set istio.trafficSplit.oldVersion=90 \
-  --set istio.trafficSplit.newVersion=10
+  --set ingress.host=stable.team18.nl \
+  --set secrets.smtpPassword="your-secure-password"
 ```
 
-### Configuration
+---
 
-Istio settings in `helm/values.yaml`:
-- `istio.enabled`: Enable/disable Istio resources
-- `istio.gatewayName`: IngressGateway name (configurable)
-- `istio.trafficSplit.oldVersion`: Percentage to v1 (default: 90)
-- `istio.trafficSplit.newVersion`: Percentage to v2 (default: 10)
+### 3. Accessing the Application
 
-## Alerting
+#### On Custom Provisioned Cluster (Vagrant)
+
+Our cluster uses **MetalLB** to provide a consistent LoadBalancer IP.
+
+1. **Verify the Ingress External IP:**
+    ```bash
+    kubectl get service -n nginx ingresscontroller-ingress-nginx-controller
+    ```
+   *Note: In our default setup, this IP is fixed at `192.168.56.90`.*
+
+2. **Map the Hostname:**
+   Add the following entry to your host machine's `/etc/hosts` file:
+   ```text
+   192.168.56.90 stable.team18.nl
+   ```
+
+3. **Access:** Open [http://stable.team18.nl/sms](http://stable.team18.nl/sms) in your browser.
+
+#### On Minikube
+
+Minikube requires a tunnel to route traffic to the internal Ingress controller on macOS/Windows.
+
+1. **Start the Tunnel:**
+   In a **separate terminal window**, run:
+   ```bash
+   sudo minikube tunnel
+   ```
+
+2. **Map the Hostname:**
+   Add the following entry to your host machine's `/etc/hosts`:
+   ```text
+   127.0.0.1 stable.team18.nl
+   ```
+
+3. **Access:** Open [http://stable.team18.nl/sms](http://stable.team18.nl/sms).
+
+---
+
+### 4. App Monitoring and Alerting
 
 We have configured Prometheus and AlertManager to alert developers when the traffic is high.
 
-Use the following commands to open the respective UIs:
+Since these tools are internal to the cluster, you must use `port-forward` to access their UIs.
+
+- **For Vagrant Cluster:** Run these commands **inside the `ctrl` VM** (`vagrant ssh ctrl`).
+- **For Minikube:** Run these commands **in your local terminal**.
 
 **Prometheus (Alert Rules):**
 
 ```bash
-kubectl port-forward svc/team18-final-kube-promethe-prometheus 9090:9090
+kubectl port-forward --address 0.0.0.0 svc/team18-final-kube-promethe-prometheus 9090:9090
 ```
 
-Open in browser: http://stable.team18.nl:9090/alerts
+Open in browser:
+[http://192.168.56.100:9090](http://192.168.56.100:9090) (Vagrant)
+or [http://localhost:9090](http://localhost:9090) (Minikube)
 
 **AlertManager (Notification Status):**
 
 ```bash
-kubectl port-forward svc/team18-final-kube-promethe-alertmanager 9093:9093
+kubectl port-forward --address 0.0.0.0 svc/team18-final-kube-promethe-alertmanager 9093:9093
 ```
 
-Open in browser: http://stable.team18.nl:9093
-
-**MailHog (Email Inbox):**
+[http://192.168.56.100:9090](http://192.168.56.100:9093) (Vagrant)
+or [http://localhost:9090](http://localhost:9093) (Minikube)
+**MailPit (Email Inbox):**
 
 ```bash
-kubectl port-forward svc/mailhog 8025:8025
+kubectl port-forward --address 0.0.0.0 svc/mailpit 8025:8025
 ```
 
-Open in browser: http://stable.team18.nl:8025
+[http://192.168.56.100:9090](http://192.168.56.100:8025) (Vagrant)
+or [http://localhost:9090](http://localhost:8025) (Minikube)
 
-### Triggering a Test Alert
+#### Triggering a Test Alert
 
 Run the following command in your terminal to generate enough traffic to trigger the
 `HighPredictionRequestRate` alert (it sends a few predict requests, exceeding the threshold of 2):
@@ -232,7 +240,63 @@ for i in {1..5}; do
 done
 ```
 
-## 6. Additional Use Case
+### Grafana
+
+To see the Grafana dashboards, first run:
+
+```bash
+kubectl port-forward --address 0.0.0.0 svc/team18-final-grafana 3000:80
+```
+
+[http://192.168.56.100:9090](http://192.168.56.100:3000) (Vagrant)
+or [http://localhost:9090](http://localhost:3000) (Minikube)
+
+The login credentials are:
+Username: `admin`
+Password: `admin`
+
+When here, go to `Dashboards`, and you should see:
+- `decision-dashboard`
+- `metrics-dashboard`
+
+If they are not there, you can import the JSON files from `helm/dashboards/`
+
+*Note: To see live data in Grafana, generate traffic using the application
+at [http://stable.team18.nl/sms](http://stable.team18.nl/sms).*
+
+
+---
+
+## Istio Service Mesh (A4)
+
+This project includes Istio traffic management with:
+- Gateway and VirtualServices for IngressGateway routing
+- 90/10 canary release traffic split
+- Consistent version routing (v1→v1, v2→v2)
+- Sticky sessions using consistentHash cookies
+
+### Installation
+
+Install the Helm chart with Istio enabled:
+```bash
+helm upgrade --install team18-final ./helm \
+  --set ingress.host=stable.team18.nl \
+  --set secrets.smtpPassword="your-secure-password" \
+  --set istio.enabled=true \
+  --set istio.gatewayName=ingressgateway \
+  --set istio.trafficSplit.oldVersion=90 \
+  --set istio.trafficSplit.newVersion=10
+```
+
+### Configuration
+
+Istio settings in `helm/values.yaml`:
+- `istio.enabled`: Enable/disable Istio resources
+- `istio.gatewayName`: IngressGateway name (configurable)
+- `istio.trafficSplit.oldVersion`: Percentage to v1 (default: 90)
+- `istio.trafficSplit.newVersion`: Percentage to v2 (default: 10)
+
+### Additional Use Case
 
 We implemented global and per-user rate limiting on the Istio Ingress Gateway using the Envoy Global
 Rate Limit Service:
@@ -240,7 +304,7 @@ Rate Limit Service:
 - Global limit (/sms/ path): Maximum 10 requests per minute across all users
 - Per-user limit (via X-User-ID header): Maximum 5 requests per minute per user
 
-### Testing
+#### Testing
 
 1. Global Rate Limit Test: Send more than 10 requests within a minute:
 
