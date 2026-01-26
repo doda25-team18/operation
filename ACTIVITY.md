@@ -189,3 +189,8 @@ No work
   - https://github.com/doda25-team18/operation/pull/59
   - Added the dashboard of the continuous experimentation to Grafana, added more panels to the Grafana basic metrics dashboard, fixed some gramatical mistakes in the `continous-experimentation.md`.
 
+### Week @2.10 (Jan 26+)
+
+- Samuel
+  - https://github.com/doda25-team18/operation/pull/63
+  - This week I worked on A3/A4, improving the continuous experimentation dashboard. I now separates the relevant metric based on the deployed version (stable vs canary), creating 1 graphs we can compare. I also documented this dashboard. (Note: part of these changes we accidentally committed to https://github.com/doda25-team18/operation/pull/59)
