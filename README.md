@@ -288,7 +288,8 @@ helm upgrade --install team18-final ./helm \
   --set istio.trafficSplit.newVersion=10
 ```
 
-**Important:** Istio features work through the **Istio IngressGateway** at `192.168.56.92`, not the
+**Important:** In our default setup, Istio features work through the **Istio IngressGateway** at
+`192.168.56.92`, not the
 Nginx Ingress at `192.168.56.90`. Make sure your `/etc/hosts` points to the correct IP:
 
 ```text
