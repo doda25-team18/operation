@@ -33,7 +33,7 @@ A typical user request flows through the system as follows:
    The `VirtualService` decides whether the request should be routed to `v1` or `v2` of `app-service`, based on its configured 90/10 weights.
 
 5. **app-service -> model-service**  
-   The request flows from `app-service` to `model-service`. Sticky session ensures the user stays on the same version: if the request is sent to `app-service-v1`, then it will be handled by `model-service-v1` and not `model-service-v2`. The same applies for `app-service-v2` as well.
+   The request flows from `app-service` to `model-service`. Sticky session ensures the user stays on the same version: if the request is sent to `app-service-v1`, then the next requests will be on `app-service-v1` as well.
 
 6. **model-service -> app-service -> Client**  
    The `model-service` returns the prediction to the `app-service`, which constructs the HTTP response and sends it back to the client via the same path **(app → VirtualService → Istio Gateway → Client)**.
