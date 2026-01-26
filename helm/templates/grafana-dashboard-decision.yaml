@@ -6,4 +6,4 @@ metadata:
     grafana_dashboard: "1"
 data:
   app-overview.json: |
-{{ .Files.Get "dashboards/decision-dashboard.json" | indent 4 }}
+{{ .Files.Get "dashboards/A4-cont-exp.json" | indent 4 }}

@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 29,
+  "id": 31,
   "links": [],
   "panels": [
     {
@@ -98,7 +98,7 @@
                 "value": {
                   "legend": false,
                   "tooltip": false,
-                  "viz": true
+                  "viz": false
                 }
               }
             ]
@@ -129,11 +129,11 @@
       "targets": [
         {
           "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "rate(num_predictions[$__interval])",
+          "expr": "sum by (version) (label_replace(rate(num_predictions[$__interval]), \"version\", \"$1\", \"pod\", \"(app-v[0-9]).*\"))",
           "fullMetaSearch": false,
-          "includeNullMetadata": true,
+          "includeNullMetadata": false,
           "instant": false,
           "interval": "",
           "legendFormat": "__auto",
@@ -161,5 +161,5 @@
   "timezone": "browser",
   "title": "A4-cont-exp",
   "uid": "029611de-e434-49e1-987f-021d581bda13",
-  "version": 8
+  "version": 1
 }
