@@ -20,6 +20,8 @@ It is our hypothesis that, with this feature, a user is likely to make more requ
 
 ## Decision Process
 
+To aid the decision process, we have created a grafana dashboard showing the rate of predictions our system handles. This graph shows two lines, one for the stable (v1) deployment and one for the canary (v2) deployment. This allows for an easy side-by-side comparison. An example can be seen below, with the stable release in green and the canary release in yellow: ![Finalization dashboard example](resources/cont-expr-dashboard.png)
+
 ### Thought Process
 This feature's goal is to provide the user with a convenient statistic. Thus, if we observe that group B (Canary version) makes more back-to-back requests on our application than group A (Stable version), this likely means that they are making use of the accuracy score feature, as this is the only change on the webpage and thus the only reason for a user to stay longer. Thus, if group B spends noticably longer on the webapge, then we will accept that the hypothesis is true - the feature is being used by the app's users, and implement the feature. 
 
@@ -28,5 +30,5 @@ We will observe how many "peaks" our graph has, as each peak in our graph shows 
 
 ### Steps
 1. Observe user behaviour: this experiment will run 24 hours.
-2. Evaluate data: evaluate teh graphs present on Grafana
+2. Evaluate data: evaluate the graphs present on Grafana
 3. Make decision: the decision will be based solely on the previously specified criteria (see Decision Criteria)
