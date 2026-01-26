@@ -14,6 +14,7 @@ spec:
   gateways:
   - {{ .Values.app.name }}-gateway
   http:
+  # Rule 1: If user already has v2 cookie, route to v2
   - match:
     - headers:
         cookie:
@@ -22,6 +23,7 @@ spec:
     - destination:
         host: {{ .Values.app.name }}-service
         subset: v2
+  # Rule 2: If user already has v1 cookie, route to v1
   - match:
     - headers:
         cookie:
@@ -30,13 +32,22 @@ spec:
     - destination:
         host: {{ .Values.app.name }}-service
         subset: v1
+  # Rule 3: New users - split traffic and SET cookie for sticky sessions
   - route:
     - destination:
         host: {{ .Values.app.name }}-service
         subset: v1
       weight: {{ .Values.istio.trafficSplit.oldVersion }}
+      headers:
+        response:
+          set:
+            Set-Cookie: "version=v1; Path=/; Max-Age=3600"
     - destination:
         host: {{ .Values.app.name }}-service
         subset: v2
       weight: {{ .Values.istio.trafficSplit.newVersion }}
+      headers:
+        response:
+          set:
+            Set-Cookie: "version=v2; Path=/; Max-Age=3600"
 {{- end }}
