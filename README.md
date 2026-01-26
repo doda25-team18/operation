@@ -214,16 +214,16 @@ or [http://localhost:9090](http://localhost:9090) (Minikube)
 kubectl port-forward --address 0.0.0.0 svc/team18-final-kube-promethe-alertmanager 9093:9093
 ```
 
-[http://192.168.56.100:9090](http://192.168.56.100:9093) (Vagrant)
-or [http://localhost:9090](http://localhost:9093) (Minikube)
+[http://192.168.56.100:9093](http://192.168.56.100:9093) (Vagrant)
+or [http://localhost:9093](http://localhost:9093) (Minikube)
 **MailPit (Email Inbox):**
 
 ```bash
 kubectl port-forward --address 0.0.0.0 svc/mailpit 8025:8025
 ```
 
-[http://192.168.56.100:9090](http://192.168.56.100:8025) (Vagrant)
-or [http://localhost:9090](http://localhost:8025) (Minikube)
+[http://192.168.56.100:8025](http://192.168.56.100:8025) (Vagrant)
+or [http://localhost:8025](http://localhost:8025) (Minikube)
 
 #### Triggering a Test Alert
 
@@ -248,8 +248,8 @@ To see the Grafana dashboards, first run:
 kubectl port-forward --address 0.0.0.0 svc/team18-final-grafana 3000:80
 ```
 
-[http://192.168.56.100:9090](http://192.168.56.100:3000) (Vagrant)
-or [http://localhost:9090](http://localhost:3000) (Minikube)
+[http://192.168.56.100:3000](http://192.168.56.100:3000) (Vagrant)
+or [http://localhost:3000](http://localhost:3000) (Minikube)
 
 The login credentials are:
 Username: `admin`
