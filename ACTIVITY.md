@@ -181,11 +181,8 @@ No work
   - This week I fixed a bug in finalization.yml and switched from Mailhog to Mailpit for alert
     delivery. Also I improved READMEs
 
+### Week Q2.10 (Jan 26+)
+
 - Yasar
-  - https://github.com/doda25-team18/operation/pull/58
-  - Completed A4 Continuous Experimentation: Added v2 canary deployment (deployment-app-v2.yaml) for A/B testing, enabling 90/10 traffic split between stable (v1) and canary (v2) versions. Updated values.yaml with canary configuration and fixed v1 deployment labels/selectors. Also added screenshot of decision dashboard to documentation.
-
-- Diana
-  - https://github.com/doda25-team18/operation/pull/59
-  - Added the dashboard of the continuous experimentation to Grafana, added more panels to the Grafana basic metrics dashboard, fixed some gramatical mistakes in the `continous-experimentation.md`.
-
+  - https://github.com/doda25-team18/operation/pull/60
+  - Fixed sticky sessions: VirtualService was checking for version cookies but nothing was setting them. Added Set-Cookie response headers to the weighted route destinations so users receive a cookie on first visit for proper sticky session behavior.
