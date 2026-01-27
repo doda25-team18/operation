@@ -58,6 +58,8 @@ For testing, we will have two versions:
 
 90% of the users will be routed to the stable version, and 10% will be routed to the canary version. In this case, we also use Sticky Session to ensure that a user remains on the same version for the entire duration of the session.
 
+The prerelease domain always routes to the canary version.
+
 ## 5. Monitoring
 
 In order to observe the health and behaviour of our deployment, we use monitoring tools such as Prometheus and Grafana. These also support the continuous experimentation for the canary and stable versions.
@@ -109,6 +111,8 @@ This additional use case provides several benefits to our deployment:
 
 ## 7. External Access
 
-- **hostnames**: stable.team18.nl
+- **hostnames**: 
+   - stable.team18.nl
+   - prerelease.team18.nl
 - **ports**: 80
 - **paths**: `/sms` - main web interface of the application
