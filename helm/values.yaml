@@ -40,6 +40,10 @@ canary:
   image: ghcr.io/doda25-team18/app:0.6.0  # v2 canary image with accuracy score feature
   replicaCount: 1
 
+  modelService:
+    image: ghcr.io/doda25-team18/model-service:0.2.0
+    replicaCount: 1
+
 istio:
   enabled: true
   gatewayName: "ingressgateway"

@@ -1,0 +1,29 @@
+{{- if and .Values.istio.enabled .Values.canary.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.modelService.name }}-v2
+  labels:
+    app: {{ .Values.modelService.name }}
+    version: v2
+spec:
+  replicas: {{ .Values.canary.modelService.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.modelService.name }}
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.modelService.name }}
+        version: v2
+    spec:
+      containers:
+      - name: {{ .Values.modelService.name }}
+        image: {{ .Values.canary.modelService.image }}
+        ports:
+        - containerPort: {{ .Values.modelService.port }}
+        env:
+        - name: MODEL_SERVICE_PORT
+          value: "{{ .Values.modelService.port }}"
+{{- end }}
