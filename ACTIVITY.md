@@ -194,3 +194,7 @@ No work
 - Samuel
   - https://github.com/doda25-team18/operation/pull/63
   - This week I worked on A3/A4, improving the continuous experimentation dashboard. I now separates the relevant metric based on the deployed version (stable vs canary), creating 1 graphs we can compare. I also documented this dashboard. (Note: part of these changes we accidentally committed to https://github.com/doda25-team18/operation/pull/59)
+
+- Diana
+  - https://github.com/doda25-team18/operation/pull/64
+  - This week I worked on A4, where I added a new version for our model-service deployment.
