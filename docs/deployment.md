@@ -87,9 +87,9 @@ As our additional Istio use case, we implemented **global and per-user rate limi
 
 We defined two independent limits:
 
-1. **Global limit**: Accepts only 20 requests per minute across all users. After 20 requests, returns an error. This limit protects the system from sudden surges or accidental flooding.
+1. **Global limit**: Accepts only 10 requests per minute across all users. After 20 requests, returns an error. This limit protects the system from sudden surges or accidental flooding.
 
-2. **Per-user limit**: Accepts only 2 requests per minute, per user. This limit ensures fairness and prevents a single user from overwhelming the system. Since this limit applies to each user individually, one user surpassing the limit shouldn't affect the others.
+2. **Per-user limit**: Accepts only 5 requests per minute, per user. This limit ensures fairness and prevents a single user from overwhelming the system. Since this limit applies to each user individually, one user surpassing the limit shouldn't affect the others.
 
 ### Placement in the Deployment Flow
 
