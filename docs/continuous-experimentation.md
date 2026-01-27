@@ -32,3 +32,8 @@ We will observe how many "peaks" our graph has, as each peak in our graph shows 
 1. Observe user behaviour: this experiment will run 24 hours.
 2. Evaluate data: evaluate the graphs present on Grafana
 3. Make decision: the decision will be based solely on the previously specified criteria (see Decision Criteria)
+
+### Final Decision
+(Note: this is an example decision to show how this part would look like had a decision been made. As our feature is user-based and we did not have test users, we do not have objective metrics to make a decision like we would if, for example, we made a caching feature and tested loading speeds. Thus, we will imagine a scenario where the criteria to add the feature was met.)
+
+After analysing the relevant metric via the visualised data from our Grafana chart, we have concluded that the decision criteria for implementing the Accuracy Score feature has been met. To keep our application simple for grading purposes, we will not integrate the feature and leave our stable and canary versions.
