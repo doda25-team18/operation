@@ -7,7 +7,6 @@ It provides all instructions required to start the application and manage its se
 
 ## Project Structure
 
-Your organization should contain the following repositories:
 
 | Repository       | Description                                      | Link                                                             |
 |------------------|--------------------------------------------------|------------------------------------------------------------------|
@@ -20,6 +19,9 @@ This repository contains the following files:
 
 - `docker-compose.yml` – orchestrates all services
 - `README.md` – this document
+
+The packages associated with this project can be found here: [Github](https://github.com/orgs/doda25-team18/packages).
+The trained models are published as github releases in the model-service repository.
 
 ---
 
