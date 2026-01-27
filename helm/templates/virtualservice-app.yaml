@@ -14,6 +14,15 @@ spec:
   gateways:
   - {{ .Values.app.name }}-gateway
   http:
+  {{- if .Values.ingress.prereleaseHost }}
+  - match:
+    - authority:
+        exact: {{ .Values.ingress.prereleaseHost }}
+    route:
+    - destination:
+        host: {{ .Values.app.name }}-service
+        subset: v2
+  {{- end }}
   - match:
     - headers:
         cookie:

@@ -294,7 +294,10 @@ Nginx Ingress at `192.168.56.90`. Make sure your `/etc/hosts` points to the corr
 
 ```text
 192.168.56.92 stable.team18.nl
+192.168.56.92 prerelease.team18.nl
 ```
+
+The prerelease domain always serves the canary version of the app, while the stable domain adheres to the 90/10 split.
 
 ### Configuration
 
