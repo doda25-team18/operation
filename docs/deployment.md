@@ -4,7 +4,7 @@ This document describes the structure and the flow of data in our final deployme
 
 ## 1. Deployment Structure
 
-Our system consists of a frontend (`app-service`) and a backend (`model-service`), both of which support two versions ('v1' stable, 'v2' canary) for continuous experimentation, Istio routing components, including `Gateway`, `VirtualService`, and `DestinationRule`, which support traffic management through our deployment. 
+Our system consists of a frontend (`app-service`) and a backend (`model-service`), the former of which supports two versions ('v1' stable, 'v2' canary) for continuous experimentation, Istio routing components, including `Gateway`, `VirtualService`, and `DestinationRule`, which support traffic management through our deployment. 
 
 We also include Prometheus and Grafana in order to monitor specific metrics and create dashboards to compare the two versions.
 
@@ -33,7 +33,7 @@ A typical user request flows through the system as follows:
    The `VirtualService` decides whether the request should be routed to `v1` or `v2` of `app-service`, based on its configured 90/10 weights.
 
 5. **app-service -> model-service**  
-   The request flows from `app-service` to the `model-service` of the appropriate version (v1 or v2). A sticky session ensures the user stays on the same version: if the request is sent to `app-service-v1`, then the next requests will be on `app-service-v1` as well.
+   The request flows from `app-service` to the `model-service`. A sticky session ensures the user stays on the same version: if the request is sent to `app-service-v1`, then the next requests will be on `app-service-v1` as well.
 
 6. **model-service -> app-service -> Client**  
    The `model-service` returns the prediction to the `app-service`, which constructs the HTTP response and sends it back to the client via the same path **(app → VirtualService → Istio Gateway → Client)**.
@@ -87,7 +87,7 @@ As our additional Istio use case, we implemented **global and per-user rate limi
 
 We defined two independent limits:
 
-1. **Global limit**: Accepts only 10 requests per minute across all users. After 20 requests, returns an error. This limit protects the system from sudden surges or accidental flooding.
+1. **Global limit**: Accepts only 10 requests per minute across all users. After 10 requests, returns an error. This limit protects the system from sudden surges or accidental flooding.
 
 2. **Per-user limit**: Accepts only 5 requests per minute, per user. This limit ensures fairness and prevents a single user from overwhelming the system. Since this limit applies to each user individually, one user surpassing the limit shouldn't affect the others.
 
