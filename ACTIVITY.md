@@ -96,7 +96,7 @@ https://github.com/doda25-team18/operation/pull/65
 
 - Fedor
   - [https://github.com/doda25-team18/operation/pull/39]
-  THis week I worked on A4 - specifically, the Continuous Experimentation part. I have written the JavaScript/Python/CSS code for the new feature and created documentation for it. I am also working on the metrics for said feature.
+  THis week I worked on A4 - specifically, the Continuous Experimentation part. I have written the JavaScript/Python/CSS code for the new feature (update: this code has been deleted alongside the PR, and as it was replaced by better code later on) and created documentation for it. I am also working on the metrics for said feature.
 
 - Jan
   - [https://github.com/doda25-team18/operation/pull/40]
