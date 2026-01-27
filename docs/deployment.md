@@ -1,10 +1,10 @@
 # Deployment Documentation - Team 18
 
-This document describes the structure and the data flow of our final deployment.
+This document describes the structure and the flow of data in our final deployment.
 
 ## 1. Deployment Structure
 
-Our system consists of a frontend (`app-service`) and a backend (`model-service`), which support two versions ('v1' stable, 'v2' canary) for continuous experimentation, and Istio routing components, including `Gateway`, `VirtualService`, and `DestinationRule`, which support the traffic management through our deployment. 
+Our system consists of a frontend (`app-service`) and a backend (`model-service`), the former of which supports two versions ('v1' stable, 'v2' canary) for continuous experimentation, Istio routing components, including `Gateway`, `VirtualService`, and `DestinationRule`, which support traffic management through our deployment. 
 
 We also include Prometheus and Grafana in order to monitor specific metrics and create dashboards to compare the two versions.
 
@@ -33,7 +33,7 @@ A typical user request flows through the system as follows:
    The `VirtualService` decides whether the request should be routed to `v1` or `v2` of `app-service`, based on its configured 90/10 weights.
 
 5. **app-service -> model-service**  
-   The request flows from `app-service` to `model-service`. Sticky session ensures the user stays on the same version: if the request is sent to `app-service-v1`, then the next requests will be on `app-service-v1` as well.
+   The request flows from `app-service` to the `model-service`. A sticky session ensures the user stays on the same version: if the request is sent to `app-service-v1`, then the next requests will be on `app-service-v1` as well.
 
 6. **model-service -> app-service -> Client**  
    The `model-service` returns the prediction to the `app-service`, which constructs the HTTP response and sends it back to the client via the same path **(app → VirtualService → Istio Gateway → Client)**.
@@ -50,23 +50,23 @@ The decision of dynamic routing is done in `VirtualService`. We have a 90/10 spl
 
 ## 4. Continuous Experimentation
 
-For the continuous experimentation, we proposed a new feature: accuracy, which measures the percentage of correct and incorrect guesses made by the user. The decision on weather to implement this feature or not will be based on the results of the A/B testing.
+For continuous experimentation, we proposed a new feature: an accuracy score, which measures how many correct and incorrect predicitons the user has made in a single session, as well as a percentage to show the accuracy. The decision on whether to implement this feature or not will be based on the results of the A/B testing, which are supported by Grafna dashboard.
 
 For testing, we will have two versions:
-- stable version (v1) which doesn't show the new feature;
-- canary version (v2) which has the accuracy feature.
+- stable version (v1) which doesn't show the new feature
+- canary version (v2) which has the accuracy feature
 
-90% of the users will be routed to the stable version, and 10% will be routed to the canary version. In this case, we also use Sticky Session to ensure that a user remains on the same version for the entire duration of the session.
+90% of the users will be routed to the stable version, and 10% will be routed to the canary version. In this case, we also use Sticky Sessions to ensure that a user remains on the same version for the entire duration of the session.
 
 The prerelease domain always routes to the canary version.
 
 ## 5. Monitoring
 
-In order to observe the health and behaviour of our deployment, we use monitoring tools such as Prometheus and Grafana. These also support the continuous experimentation for the canary and stable versions.
+In order to observe the health and behaviour of our deployment, we use monitoring tools such as Prometheus and Grafana. These tools also support the continuous experimentation for the canary and stable versions.
 
 The deployment uses the `kube-prometheus-stack`, which provides Prometheus for the collection of metrics, Grafana for visualisation, and `kube-state-metrics` for showing the state of the Kubernetes components. The monitoring layer can be seen in Figure 3.
 
-Prometheus continuously scrapes metrics from the app-service through the `sms/metrics` endpoint. In our deployment, 3 metrics are exported:
+Prometheus continuously scrapes metrics from the app-service through the `sms/metrics` endpoint every 5 seconds. In our deployment, 3 metrics are exported:
 - `num_of_predictions` (counter) - this metric shows the total number of predictions handled by the system;
 - `correct_predictions_ratio` (gauge) - this metric shows the fraction of predictions where the user correctly predicted the model response;
 - `predict_latency_seconds` (histogram) - this metric shows how long it took to get a response from the model service in seconds.
@@ -87,7 +87,7 @@ As our additional Istio use case, we implemented **global and per-user rate limi
 
 We defined two independent limits:
 
-1. **Global limit**: Accepts only 10 requests per minute, across all users. After 10 requests, returns an error. This limit protects the system from sudden surges or accidental flooding.
+1. **Global limit**: Accepts only 10 requests per minute across all users. After 10 requests, returns an error. This limit protects the system from sudden surges or accidental flooding.
 
 2. **Per-user limit**: Accepts only 5 requests per minute, per user. This limit ensures fairness and prevents a single user from overwhelming the system. Since this limit applies to each user individually, one user surpassing the limit shouldn't affect the others.
 
