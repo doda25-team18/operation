@@ -194,3 +194,7 @@ https://github.com/doda25-team18/operation/pull/65
 - Samuel
   - https://github.com/doda25-team18/operation/pull/65
   - This week I worked on A3/A4. I implemented a prerelease hostname that always routes to the canary host, ignoring the 90/10 split. I also improved the continuous experimentation dashboard. It now separates the relevant metric based on the deployed version (stable vs canary), creating 1 graphs we can compare. I also documented this dashboard.
+ 
+- Fedor
+  - https://github.com/doda25-team18/operation/pull/67
+  - Some minor final changes for the documentation (both deployment and continuous experimentation)
